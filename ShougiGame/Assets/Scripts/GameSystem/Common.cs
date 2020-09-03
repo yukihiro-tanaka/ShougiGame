@@ -5,7 +5,7 @@
     Two
 }
 
-public enum PeiceClass : int
+public enum PieceClass : int
 {
     No = -1,
     Ou,

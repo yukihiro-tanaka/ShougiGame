@@ -32,7 +32,7 @@ public class Selector : MonoBehaviour
         GameObject clickedObject = null;
         switch ( m_gameManagerObject.m_selectMode )
         {
-            case GameManager.SelectMode.ModePeice:
+            case GameManager.SelectMode.ModePiece:
             {
                 if (clickedObject = getClickedObject("Piece")) {
                     m_gameManagerObject.onSelectPiece(clickedObject);

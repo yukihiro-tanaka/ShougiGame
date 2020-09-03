@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public enum SelectMode
     {
-        ModePeice,
+        ModePiece,
         ModeSquere,
         ModeIsPromote
     }
@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     private Piece m_selectedPiece;
     private Squere m_selectedSquere;
     private bool m_selectedIsPromoted;
+    private PieceClass m_selectedPieceButtonClass;
+    private bool m_isSelectedPieceButton;
 
     //ターン情報
     private Who m_whoseTurn = Who.One;
@@ -50,8 +52,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         //オブジェクト生成、初期化
-        placeSqueres();
-        placePieces();
+        placeInitialSqueres();
+        placeInitialPieces();
         initSelectedInfomation();
         m_playerOne = new Player(Who.One);
         m_playerTwo = new Player(Who.Two);
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void onSelectPiece(GameObject selectedPiece) {
         m_selectMode = SelectMode.ModeSquere;
+        m_isSelectedPieceButton = false;
         m_selectedPiece = selectedPiece.GetComponent<Piece>();
         //移動先のマスを選択できるようにする
         List<Coordinate> destinationList = createDestinationList(m_selectedPiece);
@@ -68,9 +71,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void onSelectPieceButton(PieceClass pieceClass) {
+        m_selectMode = SelectMode.ModeSquere;
+        m_isSelectedPieceButton = true;
+        m_selectedPieceButtonClass = pieceClass; 
+        //配置先のマスを選択できるようにする
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (!m_pieceArray[j, i]) {
+                    m_squereArray[j, i].GetComponent<MeshCollider>().enabled = true;
+                }
+            }
+        }
+    }
+
     public void onSelectSquere(GameObject selectedSquere) {
         m_selectedSquere = selectedSquere.GetComponent<Squere>();
-        if (m_selectedPiece.m_whose != m_selectedSquere.m_whose && m_selectedSquere.m_whose != Who.No && !m_selectedPiece.m_isPromoted && m_selectedPiece.m_isAblePromote) {
+        if (validatePromoiton()) {
             //相手陣を選択した時、成る選択画面を出す
             m_selectMode = SelectMode.ModeIsPromote;
             m_selectPromotionCanvas.SetActive(true);
@@ -83,10 +100,12 @@ public class GameManager : MonoBehaviour
 
     public void initSelectedInfomation()
     {
-        m_selectMode = SelectMode.ModePeice;
+        m_selectMode = SelectMode.ModePiece;
         m_selectedPiece = null;
         m_selectedSquere = null;
         m_selectedIsPromoted = false;
+        m_selectedPieceButtonClass = default;
+        m_isSelectedPieceButton = false;        
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 m_squereArray[i, j].GetComponent<MeshCollider>().enabled = false;
@@ -105,7 +124,7 @@ public class GameManager : MonoBehaviour
         onSelectInfo();
     }
 
-    private void placeSqueres()
+    private void placeInitialSqueres()
     {
         Who[,] whoseArray = new Who[,] {
             { Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two },
@@ -131,20 +150,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void placePieces()
+    private void placeInitialPieces()
     {
-        PeiceClass[,] pieceClassArray = new PeiceClass[,] {
-            { PeiceClass.Kyosya, PeiceClass.Keima, PeiceClass.Gin, PeiceClass.Kin, PeiceClass.Ou, PeiceClass.Kin, PeiceClass.Gin, PeiceClass.Keima, PeiceClass.Kyosya },
-            { PeiceClass.No, PeiceClass.Hisha, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.Kaku, PeiceClass.No },
-            { PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu },
-            { PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No },
-            { PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No },
-            { PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No },
-            { PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu, PeiceClass.Hu },
-            { PeiceClass.No, PeiceClass.Kaku, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.No, PeiceClass.Hisha, PeiceClass.No },
-            { PeiceClass.Kyosya, PeiceClass.Keima, PeiceClass.Gin, PeiceClass.Kin, PeiceClass.Ou, PeiceClass.Kin, PeiceClass.Gin, PeiceClass.Keima, PeiceClass.Kyosya }
+        PieceClass[,] pieceClassArray = new PieceClass[,] {
+            { PieceClass.Kyosya, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosya },
+            { PieceClass.No, PieceClass.Hisha, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.Kaku, PieceClass.No },
+            { PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu },
+            { PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No },
+            { PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No },
+            { PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No },
+            { PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu },
+            { PieceClass.No, PieceClass.Kaku, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.Hisha, PieceClass.No },
+            { PieceClass.Kyosya, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosya }
         };
-        GameObject[] m_pieceList = new GameObject[] {
+        GameObject[] pieceArray = new GameObject[] {
             m_pieceOu,
             m_pieceKin,
             m_pieceGin,
@@ -160,8 +179,8 @@ public class GameManager : MonoBehaviour
             diffPosition.z = - i * m_squere1.transform.localScale.z * 10;
             for (int j = 0; j < 9; j++) {
                 diffPosition.x = j * m_squere1.transform.localScale.z * 10;
-                if (pieceClassArray[i, j] != PeiceClass.No) {
-                    m_pieceArray[j, i] = Instantiate(m_pieceList[(int)pieceClassArray[i, j]], leftUpPosition + diffPosition, Quaternion.identity);
+                if (pieceClassArray[i, j] != PieceClass.No) {
+                    m_pieceArray[j, i] = Instantiate(pieceArray[(int)pieceClassArray[i, j]], leftUpPosition + diffPosition, Quaternion.identity);
                     m_pieceArray[j, i].GetComponent<Piece>().initialize(pieceClassArray[i, j], ((i > 5) ? Who.One : Who.Two), new Coordinate(j, i));
                     m_pieceArray[j, i].tag = ((i > 5) ? "OnesPiece" : "TwosPiece");
                 }
@@ -174,7 +193,7 @@ public class GameManager : MonoBehaviour
         List<Coordinate> destinationList = new List<Coordinate>();
         switch (piece.m_pieceClass)
         {
-            case PeiceClass.Ou:{
+            case PieceClass.Ou:{
                 addDestination(new Coordinate(-1, -1), piece, ref destinationList);
                 addDestination(new Coordinate(0, -1), piece, ref destinationList);
                 addDestination(new Coordinate(1, -1), piece, ref destinationList);
@@ -185,7 +204,7 @@ public class GameManager : MonoBehaviour
                 addDestination(new Coordinate(-1, 1), piece, ref destinationList);
                 break;
             }
-            case PeiceClass.Kin:{
+            case PieceClass.Kin:{
                 addDestination(new Coordinate(-1, (piece.m_whose == Who.One) ? -1 : 1), piece, ref destinationList);
                 addDestination(new Coordinate(0, (piece.m_whose == Who.One) ? -1 : 1), piece, ref destinationList);
                 addDestination(new Coordinate(1, (piece.m_whose == Who.One) ? -1 : 1), piece, ref destinationList);
@@ -194,7 +213,7 @@ public class GameManager : MonoBehaviour
                 addDestination(new Coordinate(0, (piece.m_whose == Who.One) ? 1 : -1), piece, ref destinationList);
                 break;
             }
-            case PeiceClass.Gin:{
+            case PieceClass.Gin:{
                 if (!piece.m_isPromoted) {
                     addDestination(new Coordinate(-1, (piece.m_whose == Who.One) ? -1 : 1), piece, ref destinationList);
                     addDestination(new Coordinate(0, (piece.m_whose == Who.One) ? -1 : 1), piece, ref destinationList);
@@ -211,7 +230,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             }
-            case PeiceClass.Keima:{
+            case PieceClass.Keima:{
                 if (!piece.m_isPromoted) {
                     addDestination(new Coordinate(-1, (piece.m_whose == Who.One) ? -2 : 2), piece, ref destinationList);
                     addDestination(new Coordinate(1, (piece.m_whose == Who.One) ? -2 : 2), piece, ref destinationList);
@@ -225,7 +244,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             }
-            case PeiceClass.Kyosya:{
+            case PieceClass.Kyosya:{
                 if (!piece.m_isPromoted) {
                     //上
                     for (int i = 1; piece.m_position.y - i >= 0; i++) {
@@ -255,7 +274,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             }
-            case PeiceClass.Kaku:{
+            case PieceClass.Kaku:{
                 //左上
                 for (int i = 1; (piece.m_position.x - i >= 0) && (piece.m_position.y - i >= 0); i++) {
                     if (!addDestination(new Coordinate(-i, -i), piece, ref destinationList)) {
@@ -300,7 +319,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             }
-            case PeiceClass.Hisha:{
+            case PieceClass.Hisha:{
                 //左
                 for (int i = 1; piece.m_position.x - i >= 0; i++) {
                     if (!addDestination(new Coordinate(-i, 0), piece, ref destinationList)) {
@@ -345,7 +364,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             }
-            case PeiceClass.Hu:{
+            case PieceClass.Hu:{
                 if (!piece.m_isPromoted) {
                     addDestination(new Coordinate(0, (piece.m_whose == Who.One) ? -1 : 1), piece, ref destinationList);
                 } else {
@@ -384,28 +403,63 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    private void onSelectInfo() {
-        //移動先のコマがあれば取る
-        GameObject destinationPiece = m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y];
-        Piece destinationPieceObject;
-        Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
-        if (destinationPiece) {
-            destinationPieceObject = destinationPiece.GetComponent<Piece>();
-            if (destinationPieceObject.m_pieceClass == PeiceClass.Ou) {
-                //王を取った時勝利する
-                Debug.Log("WIN Player " + (destinationPieceObject.m_whose == Who.Two ? "One" : "Two"));
-            } else {
-                turnPlayer.m_pieceList.Add(destinationPieceObject.m_pieceClass);
-            }
-            Destroy(destinationPiece);
+    private bool validatePromoiton() {
+        if(m_isSelectedPieceButton) {
+            return false;
         }
-        //移動する
-        m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y] = m_pieceArray[m_selectedPiece.m_position.x, m_selectedPiece.m_position.y];
-        m_pieceArray[m_selectedPiece.m_position.x, m_selectedPiece.m_position.y] = null;
-        m_selectedPiece.move(m_selectedSquere.m_position, m_selectedSquere.transform.position);
-        //成る
-        if (m_selectedIsPromoted) {
-            m_selectedPiece.promote();
+        if(m_selectedPiece.m_whose != m_selectedSquere.m_whose) {
+            return false;
+        }
+        if(m_selectedSquere.m_whose != Who.No) {
+            return false;
+        }
+        if(!m_selectedPiece.m_isPromoted) {
+            return false;
+        }
+        if(m_selectedPiece.m_isAblePromote) {
+            return false;
+        }
+        return true;
+    }
+
+    private void onSelectInfo() {
+        if(!m_isSelectedPieceButton) {
+            //移動先のコマがあれば取る
+            GameObject destinationPiece = m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y];
+            Piece destinationPieceObject;
+            Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
+            if (destinationPiece) {
+                destinationPieceObject = destinationPiece.GetComponent<Piece>();
+                if (destinationPieceObject.m_pieceClass == PieceClass.Ou) {
+                    //王を取った時勝利する
+                    Debug.Log("WIN Player " + (destinationPieceObject.m_whose == Who.Two ? "One" : "Two"));
+                } else {
+                    turnPlayer.m_pieceList.Add(destinationPieceObject.m_pieceClass);
+                }
+                Destroy(destinationPiece);
+            }
+            //移動する
+            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y] = m_pieceArray[m_selectedPiece.m_position.x, m_selectedPiece.m_position.y];
+            m_pieceArray[m_selectedPiece.m_position.x, m_selectedPiece.m_position.y] = null;
+            m_selectedPiece.move(m_selectedSquere.m_position, m_selectedSquere.transform.position);
+            //成る
+            if (m_selectedIsPromoted) {
+                m_selectedPiece.promote();
+            }
+        } else {
+            GameObject[] pieceArray = new GameObject[] {
+                m_pieceOu,
+                m_pieceKin,
+                m_pieceGin,
+                m_pieceKeima,
+                m_pieceKyosya,
+                m_pieceKaku,
+                m_pieceHisha,
+                m_pieceHu
+            };
+            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y] = Instantiate(pieceArray[(int)m_selectedPieceButtonClass], m_selectedSquere.transform.position, Quaternion.identity);
+            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y].GetComponent<Piece>().initialize(m_selectedPieceButtonClass, m_whoseTurn, new Coordinate(m_selectedSquere.m_position.x, m_selectedSquere.m_position.y));
+            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y].tag = ((m_whoseTurn == Who.One) ? "OnesPiece" : "TwosPiece");
         }
         //ターン移行する
         m_whoseTurn = (m_whoseTurn == Who.One ? Who.Two : Who.One);

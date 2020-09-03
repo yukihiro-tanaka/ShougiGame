@@ -33,7 +33,7 @@ public class PlayerCamera : MonoBehaviour
         GameObject clickedObject = null;
         switch ( m_gameManagerObject.m_selectMode )
         {
-            case GameManager.SelectMode.ModePeice:
+            case GameManager.SelectMode.ModePiece:
             {
                 if (clickedObject = getClickedObject(m_whose == Who.One ? "OnesPiece" : "TwosPiece")) {
                     m_gameManagerObject.onSelectPiece(clickedObject);

@@ -9,7 +9,7 @@ public class Piece : MonoBehaviour
     public Coordinate m_position { get; private set; }
     public bool m_isPromoted { get; private set; }
     public bool m_isAblePromote { get; private set; }
-    [SerializeField] private GameObject m_aura = default;
+    private GameObject m_aura = default;
 
     public void initialize(PieceClass pieceClass, Who whose, Coordinate position)
     {

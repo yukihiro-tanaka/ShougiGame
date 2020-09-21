@@ -34,7 +34,9 @@ public class Selector : MonoBehaviour
         {
             case GameManager.SelectMode.ModePiece:
             {
-                if (clickedObject = getClickedObject("Piece")) {
+                if (clickedObject = getClickedObject("OnesPiece")) {
+                    m_gameManagerObject.onSelectPiece(clickedObject);
+                } else if (clickedObject = getClickedObject("TwosPiece")) {
                     m_gameManagerObject.onSelectPiece(clickedObject);
                 }
                 break;

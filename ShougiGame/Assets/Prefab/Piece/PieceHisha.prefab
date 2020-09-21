@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 136674557866875490}
   - component: {fileID: 136674557874140584}
   - component: {fileID: 5426604949685484343}
+  - component: {fileID: 8779818138932546929}
   m_Layer: 0
   m_Name: PieceHisha
   m_TagString: Untagged
@@ -97,6 +98,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c30754981bd44b08a1fc23e155fa62e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &8779818138932546929
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136674557866706434}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!1 &136674557866706436
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,18 @@ public class Piece : MonoBehaviour
     public bool m_isPromoted { get; private set; }
     public bool m_isAblePromote { get; private set; }
     private GameObject m_aura = default;
+    private Vector3 m_targetTransformPosition;
 
+    void Update()
+    {
+        if (transform.position == m_targetTransformPosition) {
+            // 移動しない
+        } else {
+            transform.position = Vector3.MoveTowards(transform.position, m_targetTransformPosition, Time.deltaTime);
+        }
+    }
+
+    // Awakeで初期化すること
     public void initialize(PieceClass pieceClass, Who whose, Coordinate position)
     {
         m_pieceClass = pieceClass;
@@ -26,6 +37,7 @@ public class Piece : MonoBehaviour
         if (m_whose == Who.Two) {
             transform.Rotate(new Vector3(0, 180, 0));
         }
+        m_targetTransformPosition = transform.position;
     }
 
     public void promote()
@@ -36,10 +48,11 @@ public class Piece : MonoBehaviour
         }
     }
 
-    public void move(Coordinate position, Vector3 trasformPosition)
+    public void move(Coordinate position, Vector3 targetTransformPosition)
     {
         m_position = position;
-        transform.position = trasformPosition;
+        //transform.position = targetTransformPosition;
+        m_targetTransformPosition = targetTransformPosition;
     }
 
 

@@ -407,16 +407,16 @@ public class GameManager : MonoBehaviour
         if(m_isSelectedPieceButton) {
             return false;
         }
-        if(m_selectedPiece.m_whose != m_selectedSquere.m_whose) {
+        if(m_selectedPiece.m_whose == m_selectedSquere.m_whose) {
             return false;
         }
-        if(m_selectedSquere.m_whose != Who.No) {
+        if(m_selectedSquere.m_whose == Who.No) {
             return false;
         }
-        if(!m_selectedPiece.m_isPromoted) {
+        if(m_selectedPiece.m_isPromoted) {
             return false;
         }
-        if(m_selectedPiece.m_isAblePromote) {
+        if(!m_selectedPiece.m_isAblePromote) {
             return false;
         }
         return true;

@@ -11,13 +11,23 @@ public class Piece : MonoBehaviour
     public bool m_isAblePromote { get; private set; }
     private GameObject m_aura = default;
     private Vector3 m_targetTransformPosition;
+    private Animator m_pieceAnimator;
 
-    void Update()
-    {
+
+    private void Start() {
+        //m_pieceAnimator = GetComponent<Animator>();
+        //if (m_pieceAnimator != null) {
+        //    Debug.Log("GET");
+        //} else {
+        //    Debug.Log("NO GET");
+        //}
+    }
+    private void Update() {
         if (transform.position == m_targetTransformPosition) {
-            // 移動しない
+            //m_pieceAnimator.SetBool("isWalking", false);
         } else {
-            transform.position = Vector3.MoveTowards(transform.position, m_targetTransformPosition, Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, m_targetTransformPosition, 2 * Time.deltaTime);
+            //m_pieceAnimator.SetBool("isWalking", true);
         }
     }
 
@@ -51,7 +61,6 @@ public class Piece : MonoBehaviour
     public void move(Coordinate position, Vector3 targetTransformPosition)
     {
         m_position = position;
-        //transform.position = targetTransformPosition;
         m_targetTransformPosition = targetTransformPosition;
     }
 

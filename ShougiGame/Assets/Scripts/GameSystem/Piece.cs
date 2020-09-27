@@ -15,19 +15,14 @@ public class Piece : MonoBehaviour
 
 
     private void Start() {
-        //m_pieceAnimator = GetComponent<Animator>();
-        //if (m_pieceAnimator != null) {
-        //    Debug.Log("GET");
-        //} else {
-        //    Debug.Log("NO GET");
-        //}
+        m_pieceAnimator = GetComponent<Animator>();
     }
     private void Update() {
         if (transform.position == m_targetTransformPosition) {
-            //m_pieceAnimator.SetBool("isWalking", false);
+            m_pieceAnimator.SetBool("isWalking", false);
         } else {
             transform.position = Vector3.MoveTowards(transform.position, m_targetTransformPosition, 2 * Time.deltaTime);
-            //m_pieceAnimator.SetBool("isWalking", true);
+            m_pieceAnimator.SetBool("isWalking", true);
         }
     }
 

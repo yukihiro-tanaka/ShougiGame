@@ -12,24 +12,24 @@ public class Piece : MonoBehaviour
     private GameObject m_aura = default;
     private Vector3 m_targetTransformPosition;
     Quaternion m_targetTransformRotation;
-    private Animator m_pieceAnimator;
+    private PieceAnimetor m_pieceAnimator;
 
 
     private void Start() {
-        m_pieceAnimator = GetComponent<Animator>();
+        m_pieceAnimator = transform.GetChild(0).gameObject.GetComponent<PieceAnimetor>();
     }
 
     private void Update() {
-        if (!isReachTargetTransformRotation()) {
-            transform.rotation = Quaternion.Slerp(transform.rotation, m_targetTransformRotation, Time.deltaTime);
+        if (m_targetTransformRotation != transform.rotation) {
+            transform.rotation = Quaternion.Slerp(transform.rotation, m_targetTransformRotation, 2 * Time.deltaTime);
             return;
         }
-        if (!isReachTargetTransformPosition()) {
-            m_pieceAnimator.SetBool("isWalking", true);
+        if (m_targetTransformPosition != transform.position) {
+            m_pieceAnimator.setIsWalking(true);
             transform.position = Vector3.MoveTowards(transform.position, m_targetTransformPosition, 2 * Time.deltaTime);
         } else {
-            m_pieceAnimator.SetBool("isWalking", false);
-            m_targetTransformRotation.y = ((m_whose == Who.One) ? 0.0f : 180.0f);
+            m_pieceAnimator.setIsWalking(false);
+            m_targetTransformRotation = Quaternion.Euler(0, (m_whose == Who.One) ? 0.0f : 180.0f, 0);
         }
     }
 
@@ -69,26 +69,5 @@ public class Piece : MonoBehaviour
         float diffZ = transform.position.z - targetTransformPosition.z;
         float rotation = Mathf.Atan(diffX / diffZ) * Mathf.Rad2Deg + ((m_whose == Who.One) ? 0.0f : 180.0f);
         m_targetTransformRotation = Quaternion.Euler(0, rotation, 0);
-    }
-
-    private bool isReachTargetTransformRotation()
-    {
-        float animetionRangeY = 2.0f;
-        if (Mathf.Abs(Mathf.DeltaAngle(m_targetTransformRotation.eulerAngles.y, transform.rotation.eulerAngles.y)) > animetionRangeY) {
-            return false;
-        }
-        return true;
-    }
-    private bool isReachTargetTransformPosition()
-    {
-        float animetionRangeX = 0.05f;
-        float animetionRangeZ = 0.05f;
-        if (Mathf.Abs(m_targetTransformPosition.x - transform.position.x) > animetionRangeX) {
-            return false;
-        }
-        if (Mathf.Abs(m_targetTransformPosition.z - transform.position.z) > animetionRangeZ) {
-            return false;
-        }
-        return true;
     }
 }

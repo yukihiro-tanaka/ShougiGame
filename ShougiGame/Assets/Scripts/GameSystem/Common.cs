@@ -12,7 +12,7 @@ public enum PieceClass : int
     Kin,
     Gin,
     Keima,
-    Kyosya,
+    Kyosha,
     Kaku,
     Hisha,
     Hu

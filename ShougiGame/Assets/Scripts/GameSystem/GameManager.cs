@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject m_pieceKin = default;
     [SerializeField] private GameObject m_pieceGin = default;
     [SerializeField] private GameObject m_pieceKeima = default;
-    [SerializeField] private GameObject m_pieceKyosya = default;
+    [SerializeField] private GameObject m_pieceKyosha = default;
     [SerializeField] private GameObject m_pieceKaku = default;
     [SerializeField] private GameObject m_pieceHisha = default;
     [SerializeField] private GameObject m_pieceHu = default;
@@ -41,11 +41,9 @@ public class GameManager : MonoBehaviour
     //ターン情報
     private Who m_whoseTurn = Who.One;
 
-    //プレイヤーカメラ情報
-    [SerializeField] private GameObject m_playerOneCamara = default;
-    [SerializeField] private GameObject m_playerTowCamara = default;
-
     //プレイヤー情報
+    [SerializeField] private GameObject m_playerOneObject = default;
+    [SerializeField] private GameObject m_playerTwoObject = default;
     private Player m_playerOne;
     private Player m_playerTwo;
 
@@ -55,8 +53,8 @@ public class GameManager : MonoBehaviour
         placeInitialSqueres();
         placeInitialPieces();
         initSelectedInfomation();
-        m_playerOne = new Player(Who.One);
-        m_playerTwo = new Player(Who.Two);
+        m_playerOne = m_playerOneObject.GetComponent<Player>();
+        m_playerTwo = m_playerTwoObject.GetComponent<Player>();
     }
 
     public void onSelectPiece(GameObject selectedPiece) {
@@ -72,6 +70,10 @@ public class GameManager : MonoBehaviour
     }
 
     public void onSelectPieceButton(PieceClass pieceClass) {
+        Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
+        if (!turnPlayer.pullPiece(pieceClass)) {
+            return;
+        }
         m_selectMode = SelectMode.ModeSquere;
         m_isSelectedPieceButton = true;
         m_selectedPieceButtonClass = pieceClass; 
@@ -153,7 +155,7 @@ public class GameManager : MonoBehaviour
     private void placeInitialPieces()
     {
         PieceClass[,] pieceClassArray = new PieceClass[,] {
-            { PieceClass.Kyosya, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosya },
+            { PieceClass.Kyosha, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosha },
             { PieceClass.No, PieceClass.Hisha, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.Kaku, PieceClass.No },
             { PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu },
             { PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No },
@@ -161,14 +163,14 @@ public class GameManager : MonoBehaviour
             { PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No },
             { PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu, PieceClass.Hu },
             { PieceClass.No, PieceClass.Kaku, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.No, PieceClass.Hisha, PieceClass.No },
-            { PieceClass.Kyosya, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosya }
+            { PieceClass.Kyosha, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosha }
         };
         GameObject[] pieceArray = new GameObject[] {
             m_pieceOu,
             m_pieceKin,
             m_pieceGin,
             m_pieceKeima,
-            m_pieceKyosya,
+            m_pieceKyosha,
             m_pieceKaku,
             m_pieceHisha,
             m_pieceHu
@@ -244,7 +246,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             }
-            case PieceClass.Kyosya:{
+            case PieceClass.Kyosha:{
                 if (!piece.m_isPromoted) {
                     //上
                     for (int i = 1; piece.m_position.y - i >= 0; i++) {
@@ -434,7 +436,7 @@ public class GameManager : MonoBehaviour
                     //王を取った時勝利する
                     Debug.Log("WIN Player " + (destinationPieceObject.m_whose == Who.Two ? "One" : "Two"));
                 } else {
-                    turnPlayer.m_pieceList.Add(destinationPieceObject.m_pieceClass);
+                    turnPlayer.pushPiece(destinationPieceObject.m_pieceClass);
                 }
                 Destroy(destinationPiece);
             }
@@ -452,7 +454,7 @@ public class GameManager : MonoBehaviour
                 m_pieceKin,
                 m_pieceGin,
                 m_pieceKeima,
-                m_pieceKyosya,
+                m_pieceKyosha,
                 m_pieceKaku,
                 m_pieceHisha,
                 m_pieceHu
@@ -463,8 +465,8 @@ public class GameManager : MonoBehaviour
         }
         //ターン移行する
         m_whoseTurn = (m_whoseTurn == Who.One ? Who.Two : Who.One);
-        GameObject toActiveCamera = (m_whoseTurn == Who.One ? m_playerOneCamara : m_playerTowCamara);
-        GameObject toDeactiveCamera = (m_whoseTurn != Who.One ? m_playerOneCamara : m_playerTowCamara);
+        GameObject toActiveCamera = (m_whoseTurn == Who.One ? m_playerOneObject : m_playerTwoObject);
+        GameObject toDeactiveCamera = (m_whoseTurn != Who.One ? m_playerOneObject : m_playerTwoObject);
         toActiveCamera.SetActive(true);
         toDeactiveCamera.SetActive(false);
         //選択情報を初期化する

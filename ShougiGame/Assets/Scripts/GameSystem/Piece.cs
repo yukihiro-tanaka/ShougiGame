@@ -21,7 +21,7 @@ public class Piece : MonoBehaviour
 
     private void Update() {
         if (m_targetTransformRotation != transform.rotation) {
-            transform.rotation = Quaternion.Slerp(transform.rotation, m_targetTransformRotation, 2 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, m_targetTransformRotation, 4 * Time.deltaTime);
             return;
         }
         if (m_targetTransformPosition != transform.position) {

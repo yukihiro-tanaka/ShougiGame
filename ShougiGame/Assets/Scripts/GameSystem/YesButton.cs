@@ -13,6 +13,7 @@ public class YesButton : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log("Click");
         m_gameManagerObject.onClickYesButton();
     }
 }

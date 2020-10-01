@@ -9,13 +9,20 @@ public class PlayerCanvas : MonoBehaviour
 
     private void Start()
     {
-        m_pieceCountTextDictionary[PieceClass.Kin] = transform.Find("KinUI/KinCountText").GetComponent<Text>();
-        m_pieceCountTextDictionary[PieceClass.Gin] = transform.Find("GinUI/GinCountText").GetComponent<Text>();
-        m_pieceCountTextDictionary[PieceClass.Keima] = transform.Find("KeimaUI/KeimaCountText").GetComponent<Text>();
-        m_pieceCountTextDictionary[PieceClass.Kyosha] = transform.Find("KyoshaUI/KyoshaCountText").GetComponent<Text>();
-        m_pieceCountTextDictionary[PieceClass.Kaku] = transform.Find("KakuUI/KakuCountText").GetComponent<Text>();
-        m_pieceCountTextDictionary[PieceClass.Hisha] = transform.Find("HishaUI/HishaCountText").GetComponent<Text>();
-        m_pieceCountTextDictionary[PieceClass.Hu] = transform.Find("HuUI/HuCountText").GetComponent<Text>();
+        Text kinCountText = transform.Find("ButtonGroup/KinButton/KinCountText").GetComponent<Text>();
+        Text ginCountText = transform.Find("ButtonGroup/GinButton/GinCountText").GetComponent<Text>();
+        Text keimaCountText = transform.Find("ButtonGroup/KeimaButton/KeimaCountText").GetComponent<Text>();
+        Text kyoshaCountText = transform.Find("ButtonGroup/KyoshaButton/KyoshaCountText").GetComponent<Text>();
+        Text kakuCountText = transform.Find("ButtonGroup/KakuButton/KakuCountText").GetComponent<Text>();
+        Text hishaCountText = transform.Find("ButtonGroup/HishaButton/HishaCountText").GetComponent<Text>();
+        Text huCountText = transform.Find("ButtonGroup/HuButton/HuCountText").GetComponent<Text>();
+        m_pieceCountTextDictionary[PieceClass.Kin] = kinCountText;
+        m_pieceCountTextDictionary[PieceClass.Gin] = ginCountText;
+        m_pieceCountTextDictionary[PieceClass.Keima] = keimaCountText;
+        m_pieceCountTextDictionary[PieceClass.Kyosha] = kyoshaCountText;
+        m_pieceCountTextDictionary[PieceClass.Kaku] = kakuCountText;
+        m_pieceCountTextDictionary[PieceClass.Hisha] = hishaCountText;
+        m_pieceCountTextDictionary[PieceClass.Hu] = huCountText;
     }
 
     public bool showCount(PieceClass pieceClass, int count) {

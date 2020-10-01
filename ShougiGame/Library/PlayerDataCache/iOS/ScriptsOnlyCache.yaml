@@ -24,9 +24,12 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
     UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
     - UnityEngine.UI.RawImage
     - UnityEngine.UI.Text
@@ -75,6 +78,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12560}
     - Class: 114
+      Script: {instanceID: 12588}
+    - Class: 114
       Script: {instanceID: 12742}
     - Class: 114
       Script: {instanceID: 12864}
@@ -91,7 +96,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13374}
     - Class: 114
+      Script: {instanceID: 13402}
+    - Class: 114
       Script: {instanceID: 13574}
+    - Class: 114
+      Script: {instanceID: 13774}
     - Class: 114
       Script: {instanceID: 14984}
     - Class: 114
@@ -920,4 +929,4 @@ ScriptsOnlyBuild:
   platform: 9
   scenePathNames:
   - Assets/Scenes/GameScene.unity
-  playerPath: /Users/tanakayukihiro/unity_workspace/Shougi/build/Shougi/Shougi
+  playerPath: /Users/tanakayukihiro/unity_workspace/Shougi/build/Shougi

@@ -13,5 +13,7 @@ public class PieceAnimetor : MonoBehaviour
     public void setIsWalking(bool isWalking) 
     {
         m_pieceAnimator.SetBool("isWalking", isWalking);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
     }
 }

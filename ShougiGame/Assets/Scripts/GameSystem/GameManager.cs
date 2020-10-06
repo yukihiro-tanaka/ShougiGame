@@ -70,13 +70,16 @@ public class GameManager : MonoBehaviour
     }
 
     public void onSelectPieceButton(PieceClass pieceClass) {
+        if (m_selectMode != SelectMode.ModePiece) {
+            return;
+        }
         Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
         if (!turnPlayer.pullPiece(pieceClass)) {
             return;
         }
         m_selectMode = SelectMode.ModeSquere;
         m_isSelectedPieceButton = true;
-        m_selectedPieceButtonClass = pieceClass; 
+        m_selectedPieceButtonClass = pieceClass;
         //配置先のマスを選択できるようにする
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -106,8 +109,12 @@ public class GameManager : MonoBehaviour
         m_selectedPiece = null;
         m_selectedSquere = null;
         m_selectedIsPromoted = false;
-        m_selectedPieceButtonClass = default;
-        m_isSelectedPieceButton = false;        
+        if (m_isSelectedPieceButton) {
+            m_isSelectedPieceButton = false;
+            Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
+            turnPlayer.pushPiece(m_selectedPieceButtonClass);
+            m_selectedPieceButtonClass = default;
+        }
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 m_squereArray[i, j].GetComponent<MeshCollider>().enabled = false;

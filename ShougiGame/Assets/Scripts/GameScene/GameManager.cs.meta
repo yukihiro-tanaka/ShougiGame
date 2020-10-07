@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1857d8d8905494b5caa83c984eeb018a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_squere: {instanceID: 0}
+  - m_pieceOu: {instanceID: 0}
+  - m_pieceKin: {instanceID: 0}
+  - m_pieceGin: {instanceID: 0}
+  - m_pieceKeima: {instanceID: 0}
+  - m_pieceKyosya: {instanceID: 0}
+  - m_pieceKaku: {instanceID: 0}
+  - m_pieceHisha: {instanceID: 0}
+  - m_pieceHu: {instanceID: 0}
+  - m_mainCamera: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

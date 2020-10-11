@@ -47,6 +47,10 @@ public class GameManager : MonoBehaviour
     private Player m_playerOne;
     private Player m_playerTwo;
 
+    //オーディオ情報
+    [SerializeField] private GameObject m_audioManagerObject = default;
+    private AudioManager m_audioManager = default;
+
     void Awake()
     {
         //オブジェクト生成、初期化
@@ -55,9 +59,11 @@ public class GameManager : MonoBehaviour
         initSelectedInfomation();
         m_playerOne = m_playerOneObject.GetComponent<Player>();
         m_playerTwo = m_playerTwoObject.GetComponent<Player>();
+        m_audioManager = m_audioManagerObject.GetComponent<AudioManager>();
     }
 
     public void onSelectPiece(GameObject selectedPiece) {
+        m_audioManager.playSelect();
         m_selectMode = SelectMode.ModeSquere;
         m_isSelectedPieceButton = false;
         m_selectedPiece = selectedPiece.GetComponent<Piece>();
@@ -70,6 +76,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void onSelectPieceButton(PieceClass pieceClass) {
+        m_audioManager.playSelect();
         if (m_selectMode != SelectMode.ModePiece) {
             return;
         }
@@ -91,6 +98,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void onSelectSquere(GameObject selectedSquere) {
+        m_audioManager.playSelect();
         m_selectedSquere = selectedSquere.GetComponent<Squere>();
         if (validatePromoiton()) {
             //相手陣を選択した時、成る選択画面を出す
@@ -455,6 +463,7 @@ public class GameManager : MonoBehaviour
             m_selectedPiece.move(m_selectedSquere.m_position, m_selectedSquere.transform.position);
             //成る
             if (m_selectedIsPromoted) {
+                m_audioManager.playPromote();
                 m_selectedPiece.promote();
             }
         } else {

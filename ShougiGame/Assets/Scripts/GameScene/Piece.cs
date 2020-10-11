@@ -67,8 +67,12 @@ public class Piece : MonoBehaviour
         m_targetTransformPosition = targetTransformPosition;
         float diffX = transform.position.x - targetTransformPosition.x;
         float diffZ = transform.position.z - targetTransformPosition.z;
-        float rotation = Mathf.Atan(diffX / diffZ) * Mathf.Rad2Deg + ((m_whose == Who.One) ? 0.0f : 180.0f);
-        Debug.Log(rotation);
+        float rotation;
+        if (diffZ == 0) {
+            rotation = ((diffX < 0) ? 90.0f : -90.0f);
+        } else {
+            rotation = Mathf.Atan(diffX / diffZ) * Mathf.Rad2Deg + ((m_whose == Who.One) ? 0.0f : 180.0f);
+        }
         m_targetTransformRotation = Quaternion.Euler(0, rotation, 0);
     }
 }

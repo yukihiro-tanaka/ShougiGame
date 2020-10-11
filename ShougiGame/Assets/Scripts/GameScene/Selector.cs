@@ -11,10 +11,14 @@ public class Selector : MonoBehaviour
     [SerializeField] private GameObject m_mainCamera = default;
     private Camera m_cameraObject = default;
 
+    [SerializeField] private GameObject m_audioManager = default;
+    private AudioManager m_audioManagerObject = default;
+
     void Start()
     {
         m_gameManagerObject = m_gameManager.GetComponent<GameManager>();
         m_cameraObject = m_mainCamera.GetComponent<Camera>();
+        m_audioManagerObject = m_audioManager.GetComponent<AudioManager>();
     }
 
     void Update()

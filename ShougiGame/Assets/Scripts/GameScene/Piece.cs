@@ -20,8 +20,8 @@ public class Piece : MonoBehaviour
     }
 
     private void Update() {
-        if (m_targetTransformRotation != transform.rotation) {
-            transform.rotation = Quaternion.Slerp(transform.rotation, m_targetTransformRotation, 4 * Time.deltaTime);
+        if (m_targetTransformRotation != transform.localRotation) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetTransformRotation, 500.0f * Time.deltaTime);
             return;
         }
         if (m_targetTransformPosition != transform.position) {

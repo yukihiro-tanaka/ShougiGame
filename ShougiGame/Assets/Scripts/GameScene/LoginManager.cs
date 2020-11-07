@@ -4,11 +4,8 @@ using Photon.Pun;
 using Photon.Realtime;
 
 public class LoginManager : MonoBehaviourPunCallbacks {
-
-    
-    public GameObject m_player;
-    public Vector3 m_playerInitPosition;
-    public Vector3 m_playerInitRotation;
+    [SerializeField] private GameObject m_gameManagerPrefab;
+    [SerializeField] private GameObject m_playerPrefab;
 
     private void Start() {
         Login();
@@ -20,10 +17,21 @@ public class LoginManager : MonoBehaviourPunCallbacks {
     }
 
     public override void OnConnectedToMaster() {
-        PhotonNetwork.JoinOrCreateRoom("MainRoom", new RoomOptions(), TypedLobby.Default);
+        RoomOptions RoomOPS = new RoomOptions()
+        {
+            MaxPlayers = 2,
+            IsOpen = true
+        };
+        PhotonNetwork.JoinOrCreateRoom("MainRoom", RoomOPS, TypedLobby.Default);
     }
 
     public override void OnJoinedRoom() {
-        PhotonNetwork.Instantiate(m_player.name, m_playerInitPosition, Quaternion.Euler(m_playerInitRotation));
+        Player player = Instantiate(m_playerPrefab, new Vector3(0,0,0), Quaternion.identity).GetComponent<Player>();
+        if (PhotonNetwork.IsMasterClient) {
+            PhotonNetwork.Instantiate(m_gameManagerPrefab.name, new Vector3(0,0,0), Quaternion.identity);
+            photonView.RPC("setPlayer", RpcTarget.All, player, true);
+        } else {
+            
+        }
     }
 }

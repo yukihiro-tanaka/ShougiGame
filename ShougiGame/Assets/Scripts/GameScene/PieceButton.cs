@@ -9,7 +9,7 @@ public class PieceButton : MonoBehaviour
     [SerializeField] private PieceClass m_pieceClass = default;
 
     void Start() {
-        m_gameManagerObject = m_gameManager.GetComponent<GameManager>();
+        //m_gameManagerObject = m_gameManager.GetComponent<GameManager>();
     }
     public void onClick() {
         m_gameManagerObject.onSelectPieceButton(m_pieceClass);

@@ -14,7 +14,7 @@ public class PlayerCamera : MonoBehaviour
 
     void Awake()
     {
-        m_gameManagerObject = m_gameManager.GetComponent<GameManager>();
+        //m_gameManagerObject = m_gameManager.GetComponent<GameManager>();
         m_cameraObject = this.GetComponent<Camera>();
     }
 

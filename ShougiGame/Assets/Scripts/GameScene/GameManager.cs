@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public enum SelectMode
     {
@@ -53,7 +53,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject m_audioManagerObject = default;
     private AudioManager m_audioManager = default;
 
-    void Awake()
+    [PunRPC]
+    void setPlayer(Player player, bool isMaster)
+    {
+        Debug.Log("setPlayer");
+    }
+
+    void initilize()
     {
         //オブジェクト生成、初期化
         placeInitialSqueres();

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Who m_who;
     private PlayerCanvas m_playerCanvas = default;
     private Dictionary<PieceClass, int> m_pieceDictionary = new Dictionary<PieceClass, int>();
 

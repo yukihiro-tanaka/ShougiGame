@@ -2,6 +2,8 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LoginManager : MonoBehaviourPunCallbacks {
     [SerializeField] private GameObject m_gameManagerPrefab;
@@ -29,7 +31,9 @@ public class LoginManager : MonoBehaviourPunCallbacks {
         Player player = Instantiate(m_playerPrefab, new Vector3(0,0,0), Quaternion.identity).GetComponent<Player>();
         if (PhotonNetwork.IsMasterClient) {
             PhotonNetwork.Instantiate(m_gameManagerPrefab.name, new Vector3(0,0,0), Quaternion.identity);
-            photonView.RPC("setPlayer", RpcTarget.All, player, true);
+            var hashtable = new Hashtable();
+            hashtable["PlayerOne"] = player;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
         } else {
             
         }

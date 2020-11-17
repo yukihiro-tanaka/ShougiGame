@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -53,11 +55,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject m_audioManagerObject = default;
     private AudioManager m_audioManager = default;
 
-    [PunRPC]
-    void setPlayer(Player player, bool isMaster)
-    {
-        Debug.Log("setPlayer");
-    }
+    //public override void OnPlayerPropertiesUpdate(Player target, Hashtable changedProps) {
+    //    // 更新されたキーと値のペアを、デバッグログに出力する
+    //    foreach (var p in changedProps) {
+    //        Debug.Log($"{p.Key}: {p.Value}");
+    //    }
+    //}
 
     void initilize()
     {

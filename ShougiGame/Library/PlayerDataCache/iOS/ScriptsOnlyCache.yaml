@@ -3,15 +3,15 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - AudioManager
     - GameManager
+    - LoginManager
     - NoButton
     - Piece
     - PieceAnimetor
     - PieceButton
-    - Player
     - PlayerCamera
     - PlayerCanvas
+    - SelectPromotionCanvas
     - Squere
-    - StartButton
     - ToTitleButton
     - YesButton
     PhotonUnityNetworking.Demos.dll:
@@ -76,7 +76,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 54
+      Script: {instanceID: 0}
     - Class: 64
+      Script: {instanceID: 0}
+    - Class: 65
       Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
@@ -103,168 +107,77 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12348}
     - Class: 114
-      Script: {instanceID: 12428}
-    - Class: 114
-      Script: {instanceID: 12616}
-    - Class: 114
-      Script: {instanceID: 12644}
-    - Class: 114
-      Script: {instanceID: 12820}
-    - Class: 114
-      Script: {instanceID: 12958}
-    - Class: 114
-      Script: {instanceID: 12978}
-    - Class: 114
-      Script: {instanceID: 13202}
-    - Class: 114
-      Script: {instanceID: 13228}
-    - Class: 114
-      Script: {instanceID: 13430}
-    - Class: 114
-      Script: {instanceID: 13530}
-    - Class: 114
-      Script: {instanceID: 13560}
-    - Class: 114
-      Script: {instanceID: 13748}
-    - Class: 114
-      Script: {instanceID: 13918}
-    - Class: 114
-      Script: {instanceID: 13968}
-    - Class: 114
-      Script: {instanceID: 14770}
-    - Class: 114
-      Script: {instanceID: 15352}
-    - Class: 114
-      Script: {instanceID: 15494}
-    - Class: 114
-      Script: {instanceID: 15784}
-    - Class: 114
-      Script: {instanceID: 16152}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 136
-      Script: {instanceID: 0}
-    - Class: 137
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 196
-      Script: {instanceID: 0}
-    - Class: 198
-      Script: {instanceID: 0}
-    - Class: 199
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
-    - Class: 241
-      Script: {instanceID: 0}
-    - Class: 243
-      Script: {instanceID: 0}
-    - Class: 245
-      Script: {instanceID: 0}
-    Assets/Scenes/TitleScene.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 23
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 33
-      Script: {instanceID: 0}
-    - Class: 43
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 54
-      Script: {instanceID: 0}
-    - Class: 64
-      Script: {instanceID: 0}
-    - Class: 65
-      Script: {instanceID: 0}
-    - Class: 74
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 90
-      Script: {instanceID: 0}
-    - Class: 91
-      Script: {instanceID: 0}
-    - Class: 95
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 108
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 12346}
-    - Class: 114
-      Script: {instanceID: 12348}
-    - Class: 114
       Script: {instanceID: 12350}
     - Class: 114
       Script: {instanceID: 12352}
     - Class: 114
-      Script: {instanceID: 12428}
+      Script: {instanceID: 12432}
     - Class: 114
-      Script: {instanceID: 12486}
+      Script: {instanceID: 12504}
     - Class: 114
-      Script: {instanceID: 12616}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 12652}
+      Script: {instanceID: 12682}
     - Class: 114
-      Script: {instanceID: 12820}
+      Script: {instanceID: 12694}
     - Class: 114
-      Script: {instanceID: 13152}
+      Script: {instanceID: 12896}
     - Class: 114
-      Script: {instanceID: 13214}
+      Script: {instanceID: 13002}
     - Class: 114
-      Script: {instanceID: 13228}
+      Script: {instanceID: 13068}
     - Class: 114
-      Script: {instanceID: 13430}
+      Script: {instanceID: 13090}
     - Class: 114
-      Script: {instanceID: 13560}
+      Script: {instanceID: 13282}
     - Class: 114
-      Script: {instanceID: 13748}
+      Script: {instanceID: 13352}
     - Class: 114
-      Script: {instanceID: 13968}
+      Script: {instanceID: 13364}
     - Class: 114
-      Script: {instanceID: 13972}
+      Script: {instanceID: 13388}
     - Class: 114
-      Script: {instanceID: 13986}
+      Script: {instanceID: 13616}
     - Class: 114
-      Script: {instanceID: 14654}
+      Script: {instanceID: 13732}
     - Class: 114
-      Script: {instanceID: 15002}
+      Script: {instanceID: 13768}
     - Class: 114
-      Script: {instanceID: 15008}
+      Script: {instanceID: 13992}
     - Class: 114
-      Script: {instanceID: 15094}
+      Script: {instanceID: 14188}
     - Class: 114
-      Script: {instanceID: 15228}
+      Script: {instanceID: 14256}
     - Class: 114
-      Script: {instanceID: 15266}
+      Script: {instanceID: 14260}
     - Class: 114
-      Script: {instanceID: 15352}
+      Script: {instanceID: 14274}
     - Class: 114
-      Script: {instanceID: 15674}
+      Script: {instanceID: 15096}
     - Class: 114
-      Script: {instanceID: 15870}
+      Script: {instanceID: 15234}
     - Class: 114
-      Script: {instanceID: 16216}
+      Script: {instanceID: 15522}
+    - Class: 114
+      Script: {instanceID: 15528}
+    - Class: 114
+      Script: {instanceID: 15796}
+    - Class: 114
+      Script: {instanceID: 15836}
+    - Class: 114
+      Script: {instanceID: 15936}
+    - Class: 114
+      Script: {instanceID: 16108}
+    - Class: 114
+      Script: {instanceID: 16340}
+    - Class: 114
+      Script: {instanceID: 16566}
+    - Class: 114
+      Script: {instanceID: 16906}
+    - Class: 114
+      Script: {instanceID: 16986}
+    - Class: 114
+      Script: {instanceID: 30580}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -285,8 +198,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 199
       Script: {instanceID: 0}
-    - Class: 212
-      Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
     - Class: 222
@@ -296,6 +207,12 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
     - Class: 225
+      Script: {instanceID: 0}
+    - Class: 241
+      Script: {instanceID: 0}
+    - Class: 243
+      Script: {instanceID: 0}
+    - Class: 245
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -432,6 +349,12 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableUpdateTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 0ffaf073d4b1fa4e8036cf7ad52ddba7
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -546,7 +469,13 @@ ScriptsOnlyBuild:
     className: CurrentRoomIsVisibleProperty
   - hash:
       serializedVersion: 2
-      Hash: 8fc3a6413aabd6f25cbc0b782cf8e04a
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableSubmitTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: a5e231b98c0b078300600f17e5332df1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PieceButton
@@ -571,6 +500,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCanvasGroupChangedTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.XR.ARFoundation.dll
     namespaceName: UnityEngine.XR.ARFoundation
     className: ARPointCloudMeshVisualizer
@@ -586,6 +521,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.PunBasics
     className: GameManager
+  - hash:
+      serializedVersion: 2
+      Hash: 9a8c696c527cdd865d90b19ffff48b84
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: LoginManager
   - hash:
       serializedVersion: 2
       Hash: ba160f8fe96116c81151a9a24d7d9f4f
@@ -612,7 +553,7 @@ ScriptsOnlyBuild:
     className: PlayerCanvas
   - hash:
       serializedVersion: 2
-      Hash: 0f9cbe278933921acea893036bde1d09
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: YesButton
@@ -642,6 +583,18 @@ ScriptsOnlyBuild:
     className: PlaymodeTestsController
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableBeginDragTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableVisibleTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 7221ab9307aaa6b66a416e2e4561f420
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
@@ -664,6 +617,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: BestRegionInPrefsProperty
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniTask.dll
+    namespaceName: Cysharp.Threading.Tasks.Triggers
+    className: AsyncStartTrigger
   - hash:
       serializedVersion: 2
       Hash: 18d89cb858d0cf8a1f38bb786789eaa7
@@ -691,6 +650,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableTransformChangedTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Piece
@@ -706,6 +671,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.PunBasics
     className: Launcher
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDropTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -744,6 +715,12 @@ ScriptsOnlyBuild:
     className: PlayerListCell
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableRectTransformTrigger
+  - hash:
+      serializedVersion: 2
       Hash: f941c3a384168571b7d90f58ec4986bc
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
@@ -754,6 +731,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: CanvasScaler
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCancelTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -786,7 +769,7 @@ ScriptsOnlyBuild:
     className: CountdownTimer
   - hash:
       serializedVersion: 2
-      Hash: 31b4fa0ce3cf7d30a82fb8934ca4fffa
+      Hash: ba9ffcbc9869c95a44fce1668908b363
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -930,6 +913,12 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDeselectTrigger
+  - hash:
+      serializedVersion: 2
       Hash: c656dcc13ae391b68d594cc8f9c590b0
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
@@ -1008,6 +997,12 @@ ScriptsOnlyBuild:
     className: CurrentRoomIsOfflineProperty
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerClickTrigger
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1018,6 +1013,12 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: CurrentRoomNameProperty
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableUpdateSelectedTrigger
   - hash:
       serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
@@ -1042,6 +1043,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ToggleGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCollision2DTrigger
   - hash:
       serializedVersion: 2
       Hash: 16dacd04869a876ea4bea0d1d2e77e34
@@ -1092,6 +1099,24 @@ ScriptsOnlyBuild:
     className: BezierCurve
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableEventTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableJointTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample02_ObservableTriggers
+  - hash:
+      serializedVersion: 2
       Hash: 5e8a01a14cef8c5fb6866e39e13545df
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: UnityStandardAssets.Characters.ThirdPerson.PunDemos
@@ -1110,12 +1135,6 @@ ScriptsOnlyBuild:
     className: ARCameraBackground
   - hash:
       serializedVersion: 2
-      Hash: c656dcc13ae391b68d594cc8f9c590b0
-    assemblyName: PhotonUnityNetworking.Demos.dll
-    namespaceName: Photon.Pun.Demo.Cockpit
-    className: IsConnectedProperty
-  - hash:
-      serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -1132,6 +1151,18 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Utilities.dll
     namespaceName: Photon.Pun.UtilityScripts
     className: CullingHandler
+  - hash:
+      serializedVersion: 2
+      Hash: c656dcc13ae391b68d594cc8f9c590b0
+    assemblyName: PhotonUnityNetworking.Demos.dll
+    namespaceName: Photon.Pun.Demo.Cockpit
+    className: IsConnectedProperty
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableStateMachineTrigger
   - hash:
       serializedVersion: 2
       Hash: afb97f21bf5ca1f779240368ac4bb239
@@ -1170,6 +1201,12 @@ ScriptsOnlyBuild:
     className: OnClickDestroy
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample08_DetectDoubleClick
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -1180,6 +1217,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: VerticalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableTrigger2DTrigger
   - hash:
       serializedVersion: 2
       Hash: cba6cca6bb3290c4c00d709cf63843db
@@ -1212,10 +1255,22 @@ ScriptsOnlyBuild:
     className: ARTrackedImage
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDestroyTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 632731657c90f101a2dca0a2b7a6245c
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
     className: BoolInputField
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniTask.dll
+    namespaceName: Cysharp.Threading.Tasks.Triggers
+    className: AsyncAwakeTrigger
   - hash:
       serializedVersion: 2
       Hash: c656dcc13ae391b68d594cc8f9c590b0
@@ -1273,6 +1328,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableEnableTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: PositionAsUV1
@@ -1326,12 +1387,6 @@ ScriptsOnlyBuild:
     className: RegionListCell
   - hash:
       serializedVersion: 2
-      Hash: c656dcc13ae391b68d594cc8f9c590b0
-    assemblyName: PhotonUnityNetworking.Demos.dll
-    namespaceName: Photon.Pun.Demo.Cockpit
-    className: CountOfRoomsProperty
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
@@ -1344,10 +1399,28 @@ ScriptsOnlyBuild:
     className: EventTrigger
   - hash:
       serializedVersion: 2
+      Hash: c656dcc13ae391b68d594cc8f9c590b0
+    assemblyName: PhotonUnityNetworking.Demos.dll
+    namespaceName: Photon.Pun.Demo.Cockpit
+    className: CountOfRoomsProperty
+  - hash:
+      serializedVersion: 2
+      Hash: bf4f57b53dab8f579842c4818966c95c
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample12_ReactiveProperty
+  - hash:
+      serializedVersion: 2
       Hash: ee1dba1a186ac062d564e9eb73a1c56f
     assemblyName: PhotonUnityNetworking.Utilities.dll
     namespaceName: Photon.Pun.UtilityScripts
     className: TextToggleIsOnTransition
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableAnimatorTrigger
   - hash:
       serializedVersion: 2
       Hash: 840e65a413cc46ebbbbf200f4362a70c
@@ -1372,6 +1445,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Dropdown
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableLateUpdateTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1402,6 +1481,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.XR.ARKit.dll
     namespaceName: UnityEngine.XR.ARKit
     className: ARKitLoader
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableTriggerTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableEndDragTrigger
   - hash:
       serializedVersion: 2
       Hash: f6633ace6e530c0000f2ac6da4269c52
@@ -1452,6 +1543,12 @@ ScriptsOnlyBuild:
     className: CullArea
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample06_ConvertToCoroutine
+  - hash:
+      serializedVersion: 2
       Hash: 92b8fbb1b8e53469d7549c58a3fe58fe
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Asteroids
@@ -1488,6 +1585,12 @@ ScriptsOnlyBuild:
     className: CreateRoomUiForm
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableInitializePotentialDragTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 4fe8955e1c662935371b0936cafbb89b
     assemblyName: PhotonUnityNetworking.Utilities.dll
     namespaceName: Photon.Pun.UtilityScripts
@@ -1518,16 +1621,16 @@ ScriptsOnlyBuild:
     className: ARSessionOrigin
   - hash:
       serializedVersion: 2
+      Hash: e255c36616af4b3b0b74a2b68cb33e18
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample13_ToDoApp
+  - hash:
+      serializedVersion: 2
       Hash: 7829e932aec962afd9bcfad28ffff27d
     assemblyName: PhotonUnityNetworking.Utilities.dll
     namespaceName: Photon.Pun.UtilityScripts
     className: OnJoinedInstantiate
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SampleScene
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -1572,10 +1675,10 @@ ScriptsOnlyBuild:
     className: StatesGui
   - hash:
       serializedVersion: 2
-      Hash: bb0fdf471e703fa8ae9a409861101e9f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Selector
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx
+    className: MainThreadDispatcher
   - hash:
       serializedVersion: 2
       Hash: 3165968ba45c74472d279ba04455fccb
@@ -1662,6 +1765,18 @@ ScriptsOnlyBuild:
     className: RegionListView
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableParticleTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableScrollTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 2b53d93770b9036b2fd1c7854560bc69
     assemblyName: PhotonUnityNetworking.Utilities.dll
     namespaceName: Photon.Pun.UtilityScripts
@@ -1675,9 +1790,21 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample01_ObservableWWW
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.XR.ARFoundation.dll
     namespaceName: UnityEngine.XR.ARFoundation
     className: ARPointCloudParticleVisualizer
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerUpTrigger
   - hash:
       serializedVersion: 2
       Hash: 3ba023cd67d72cace33969ab863e0fd4
@@ -1698,10 +1825,28 @@ ScriptsOnlyBuild:
     className: DocLinkButton
   - hash:
       serializedVersion: 2
-      Hash: 76aa20b8288caad7e3c6c299902f39d6
+      Hash: e7aaa43bdc071f2b163455894fc6c416
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerCamera
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableDragTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableFixedUpdateTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerEnterTrigger
   - hash:
       serializedVersion: 2
       Hash: 01473135d671a71d740e507b04eb93da
@@ -1722,6 +1867,12 @@ ScriptsOnlyBuild:
     className: EventSystemSpawner
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.Examples.dll
+    namespaceName: UniRx.Examples
+    className: Sample04_ConvertFromUnityCallback
+  - hash:
+      serializedVersion: 2
       Hash: 1bc03a501323d00d0037a6b76d25a3ba
     assemblyName: Unity.XR.ARFoundation.dll
     namespaceName: UnityEngine.XR.ARFoundation
@@ -1740,10 +1891,22 @@ ScriptsOnlyBuild:
     className: ARParticipant
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerDownTrigger
+  - hash:
+      serializedVersion: 2
       Hash: e4aa02db6487ad3aebb8e2f22ee6b699
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Procedural
     className: WorldGenerator
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservablePointerExitTrigger
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -1776,6 +1939,12 @@ ScriptsOnlyBuild:
     className: TextToggleIsOnTransition
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableSelectTrigger
+  - hash:
+      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -1788,13 +1957,25 @@ ScriptsOnlyBuild:
     className: ToggleExpand
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableCollisionTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 290afc8da8e459e0b8dc7444bfaf5e35
     assemblyName: Unity.XR.ARFoundation.dll
     namespaceName: UnityEngine.XR.ARFoundation
     className: ARAnchor
   - hash:
       serializedVersion: 2
-      Hash: 83e30995d89aaeb4bc26411273a88c58
+      Hash: d39905ff8fda75afed4d688761c322e1
+    assemblyName: Unity.XR.ARFoundation.dll
+    namespaceName: UnityEngine.XR.ARFoundation
+    className: ARFaceManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -1816,12 +1997,6 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit.Forms
     className: LoadLevelUIForm
-  - hash:
-      serializedVersion: 2
-      Hash: d39905ff8fda75afed4d688761c322e1
-    assemblyName: Unity.XR.ARFoundation.dll
-    namespaceName: UnityEngine.XR.ARFoundation
-    className: ARFaceManager
   - hash:
       serializedVersion: 2
       Hash: c87a2744a4fec8052f557862b102c4e4
@@ -1908,12 +2083,6 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: ea4e73561703f90fbdc820af646becad
-    assemblyName: PhotonUnityNetworking.Demos.dll
-    namespaceName: Photon.Pun.Demo.SlotRacer
-    className: SlotRacerSplashScreen
-  - hash:
-      serializedVersion: 2
       Hash: c656dcc13ae391b68d594cc8f9c590b0
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit
@@ -1932,6 +2101,12 @@ ScriptsOnlyBuild:
     className: ActivationPlayableAsset
   - hash:
       serializedVersion: 2
+      Hash: ea4e73561703f90fbdc820af646becad
+    assemblyName: PhotonUnityNetworking.Demos.dll
+    namespaceName: Photon.Pun.Demo.SlotRacer
+    className: SlotRacerSplashScreen
+  - hash:
+      serializedVersion: 2
       Hash: 36f96c190e244321e128769d9c5120ac
     assemblyName: Unity.ProBuilder.dll
     namespaceName: UnityEngine.ProBuilder
@@ -1942,6 +2117,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: GridLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniRx.dll
+    namespaceName: UniRx.Triggers
+    className: ObservableMoveTrigger
   - hash:
       serializedVersion: 2
       Hash: e4316571779021b969790af4a77452dd
@@ -1956,7 +2137,7 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
-      Hash: 0f9cbe278933921acea893036bde1d09
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NoButton
@@ -1986,6 +2167,12 @@ ScriptsOnlyBuild:
     className: ProceduralController
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: UniTask.dll
+    namespaceName: Cysharp.Threading.Tasks.Triggers
+    className: AsyncDestroyTrigger
+  - hash:
+      serializedVersion: 2
       Hash: 1bbce36c26e06daa73238c07c42b2bc9
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.PunBasics
@@ -1996,8 +2183,13 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit.Forms
     className: UserIdUiForm
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SelectPromotionCanvas
   platform: 9
   scenePathNames:
-  - Assets/Scenes/TitleScene.unity
   - Assets/Scenes/GameScene.unity
-  playerPath: /Users/tanakayukihiro/unity_workspace/Shougi/build/Shougi
+  playerPath: /Users/tanakayukihiro/unity_workspace/Shougi/build/LICENSE

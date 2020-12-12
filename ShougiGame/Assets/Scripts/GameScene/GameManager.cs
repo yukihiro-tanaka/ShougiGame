@@ -1,10 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -32,7 +31,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private GameObject[,] m_pieceArray = new GameObject[9, 9]; //座標系[左→右, 上→下]
 
     //成る選択画面情報
-    [SerializeField] private GameObject m_selectPromotionCanvas = default;
+    [SerializeField] private GameObject m_prefabSelectPromotionCanvas = default;
+    private GameObject m_selectPromotionCanvas = default;
 
     //選択情報
     public SelectMode m_selectMode { get; private set; }
@@ -46,34 +46,52 @@ public class GameManager : MonoBehaviourPunCallbacks
     private Who m_whoseTurn = Who.One;
 
     //プレイヤー情報
-    [SerializeField] private GameObject m_playerOneObject = default;
-    [SerializeField] private GameObject m_playerTwoObject = default;
     private Player m_playerOne;
     private Player m_playerTwo;
 
     //オーディオ情報
-    [SerializeField] private GameObject m_audioManagerObject = default;
+    [SerializeField] private GameObject m_prefabAudioManager = default;
+    private GameObject m_audioManagerObject = default;
     private AudioManager m_audioManager = default;
 
-    //public override void OnPlayerPropertiesUpdate(Player target, Hashtable changedProps) {
-    //    // 更新されたキーと値のペアを、デバッグログに出力する
-    //    foreach (var p in changedProps) {
-    //        Debug.Log($"{p.Key}: {p.Value}");
-    //    }
-    //}
-
-    void initilize()
-    {
+    [PunRPC]
+    public void GameStart() {
         //オブジェクト生成、初期化
+        m_playerOne = new Player();
+        m_playerTwo = new Player();
+        GameObject.Find("Camera").GetComponent<PlayerCamera>().initialize(this, PhotonNetwork.IsMasterClient);
+        GameObject.Find("Canvas").GetComponent<PlayerCanvas>().initialize(this, (PhotonNetwork.IsMasterClient ? m_playerOne : m_playerTwo));
         placeInitialSqueres();
         placeInitialPieces();
-        initSelectedInfomation();
-        m_playerOne = m_playerOneObject.GetComponent<Player>();
-        m_playerTwo = m_playerTwoObject.GetComponent<Player>();
+        m_selectPromotionCanvas = Instantiate(m_prefabSelectPromotionCanvas, Vector3.zero, Quaternion.identity);
+        m_selectPromotionCanvas.GetComponent<SelectPromotionCanvas>().initialize(this);
+        m_audioManagerObject = Instantiate(m_prefabAudioManager, Vector3.zero, Quaternion.identity);
         m_audioManager = m_audioManagerObject.GetComponent<AudioManager>();
+        initSelectedInfomation();
+    }
+
+    public void initSelectedInfomation()
+    {
+        m_selectMode = SelectMode.ModePiece;
+        m_selectedPiece = null;
+        m_selectedSquere = null;
+        m_selectedIsPromoted = false;
+        if (m_isSelectedPieceButton) {
+            m_isSelectedPieceButton = false;
+            m_selectedPieceButtonClass = default;
+        }
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                m_squereArray[i, j].GetComponent<MeshCollider>().enabled = false;
+            }
+        }
+        m_selectPromotionCanvas.SetActive(false);
     }
 
     public void onSelectPiece(GameObject selectedPiece) {
+        if (!isMyTurn()) {
+            return;
+        }
         m_audioManager.playSelect();
         m_selectMode = SelectMode.ModeSquere;
         m_isSelectedPieceButton = false;
@@ -87,12 +105,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     public void onSelectPieceButton(PieceClass pieceClass) {
+        if (!isMyTurn()) {
+            return;
+        }
         m_audioManager.playSelect();
         if (m_selectMode != SelectMode.ModePiece) {
             return;
         }
-        Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
-        if (!turnPlayer.pullPiece(pieceClass)) {
+        Player turnPlayer = (PhotonNetwork.IsMasterClient ? m_playerOne : m_playerTwo);
+        if (!turnPlayer.hasPiece(pieceClass)) {
             return;
         }
         m_selectMode = SelectMode.ModeSquere;
@@ -109,6 +130,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     public void onSelectSquere(GameObject selectedSquere) {
+        if (!isMyTurn()) {
+            return;
+        }
         m_audioManager.playSelect();
         m_selectedSquere = selectedSquere.GetComponent<Squere>();
         if (validatePromoiton()) {
@@ -117,29 +141,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             m_selectPromotionCanvas.SetActive(true);
         } else {
             //成れない時、選択完了
-            m_selectedIsPromoted = false;
             onSelectInfo();
         }
-    }
-
-    public void initSelectedInfomation()
-    {
-        m_selectMode = SelectMode.ModePiece;
-        m_selectedPiece = null;
-        m_selectedSquere = null;
-        m_selectedIsPromoted = false;
-        if (m_isSelectedPieceButton) {
-            m_isSelectedPieceButton = false;
-            Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
-            turnPlayer.pushPiece(m_selectedPieceButtonClass);
-            m_selectedPieceButtonClass = default;
-        }
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                m_squereArray[i, j].GetComponent<MeshCollider>().enabled = false;
-            }
-        }
-        m_selectPromotionCanvas.SetActive(false);
     }
     
     public void onClickYesButton() {
@@ -213,6 +216,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                     m_pieceArray[j, i].tag = ((i > 5) ? "OnesPiece" : "TwosPiece");
                 }
             }
+        }
+    }
+
+    private bool isMyTurn() {
+        if (PhotonNetwork.IsMasterClient) {
+            return (m_whoseTurn == Who.One) ? true : false;
+        } else {
+            return (m_whoseTurn == Who.Two) ? true : false;
         }
     }
 
@@ -451,56 +462,75 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     private void onSelectInfo() {
-        bool isGameEnd = false;
+        Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
         if(!m_isSelectedPieceButton) {
-            //移動先のコマがあれば取る
-            GameObject destinationPiece = m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y];
-            Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
-            if (destinationPiece) {
-                Piece destinationPieceObject = destinationPiece.GetComponent<Piece>();
-                Destroy(destinationPiece);
-                if (destinationPieceObject.m_pieceClass == PieceClass.Ou) {
-                    //王を取った時勝利する
-                    turnPlayer.win();
-                    isGameEnd = true;
-                    Debug.Log("WIN Player " + (destinationPieceObject.m_whose == Who.Two ? "One" : "Two"));
-                } else {
-                    turnPlayer.pushPiece(destinationPieceObject.m_pieceClass);
-                }
-            }
-            //移動する
-            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y] = m_pieceArray[m_selectedPiece.m_position.x, m_selectedPiece.m_position.y];
-            m_pieceArray[m_selectedPiece.m_position.x, m_selectedPiece.m_position.y] = null;
-            m_selectedPiece.move(m_selectedSquere.m_position, m_selectedSquere.transform.position);
-            //成る
-            if (m_selectedIsPromoted) {
-                m_audioManager.playPromote();
-                m_selectedPiece.promote();
-            }
+            photonView.RPC("movePiece", RpcTarget.All, m_selectedPiece.m_position.x, m_selectedPiece.m_position.y, m_selectedSquere.m_position.x, m_selectedSquere.m_position.y, m_selectedIsPromoted);
         } else {
-            GameObject[] pieceArray = new GameObject[] {
-                m_pieceOu,
-                m_pieceKin,
-                m_pieceGin,
-                m_pieceKeima,
-                m_pieceKyosha,
-                m_pieceKaku,
-                m_pieceHisha,
-                m_pieceHu
-            };
-            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y] = Instantiate(pieceArray[(int)m_selectedPieceButtonClass], m_selectedSquere.transform.position, Quaternion.identity);
-            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y].GetComponent<Piece>().initialize(m_selectedPieceButtonClass, m_whoseTurn, new Coordinate(m_selectedSquere.m_position.x, m_selectedSquere.m_position.y));
-            m_pieceArray[m_selectedSquere.m_position.x, m_selectedSquere.m_position.y].tag = ((m_whoseTurn == Who.One) ? "OnesPiece" : "TwosPiece");
+            photonView.RPC("placePiece", RpcTarget.All, (int)m_selectedPieceButtonClass, m_selectedSquere.m_position.x, m_selectedSquere.m_position.y);
+        }
+    }
+
+    [PunRPC]
+    private void movePiece(int piecePositionX, int piecePositionY, int squerePositionX, int squerePositionY, bool isPromoted) {
+        bool isGameEnd = false;
+        GameObject objSelectedPiece = m_pieceArray[piecePositionX, piecePositionY];
+        GameObject objSelectedSquere = m_squereArray[squerePositionX, squerePositionY];
+        Piece seledtedPiece = objSelectedPiece.GetComponent<Piece>();
+        Squere selectedSquere = objSelectedSquere.GetComponent<Squere>();
+        Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
+        //移動先のコマがあれば取る
+        GameObject objDestinationPiece = m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y];
+        if (objDestinationPiece) {
+            Piece destinationPiece = objDestinationPiece.GetComponent<Piece>();
+            Destroy(objDestinationPiece);
+            if (destinationPiece.m_pieceClass == PieceClass.Ou) {
+                //王を取った時勝利する
+                isGameEnd = true;
+                Debug.Log("WIN Player " + (destinationPiece.m_whose == Who.Two ? "One" : "Two"));
+            } else {
+                turnPlayer.pushPiece(destinationPiece.m_pieceClass);
+            }
+        }
+        //移動する
+        seledtedPiece.move(selectedSquere.m_position, objSelectedSquere.transform.position);
+        m_pieceArray[squerePositionX, squerePositionY] = m_pieceArray[piecePositionX, piecePositionY];
+        m_pieceArray[piecePositionX, piecePositionY] = null;
+        //成る
+        if (isPromoted) {
+            m_audioManager.playPromote();
+            seledtedPiece.promote();
         }
         if (!isGameEnd) {
             //ターン移行する
             m_whoseTurn = (m_whoseTurn == Who.One ? Who.Two : Who.One);
-            GameObject toActivePlayer = (m_whoseTurn == Who.One ? m_playerOneObject : m_playerTwoObject);
-            GameObject toDeactivePlayer = (m_whoseTurn != Who.One ? m_playerOneObject : m_playerTwoObject);
-            toActivePlayer.SetActive(true);
-            toDeactivePlayer.SetActive(false);
             //選択情報を初期化する
             initSelectedInfomation();
         }
+    }
+
+    [PunRPC]
+    private void placePiece(int iPieceClass, int squerePositionX, int squerePositionY)
+    {
+        PieceClass pieceClass = (PieceClass)Enum.ToObject(typeof(PieceClass), iPieceClass);
+        Squere selectedSquere = m_squereArray[squerePositionX, squerePositionY].GetComponent<Squere>();
+        Player turnPlayer = (m_whoseTurn == Who.One ? m_playerOne : m_playerTwo);
+        GameObject[] pieceArray = new GameObject[] {
+            m_pieceOu,
+            m_pieceKin,
+            m_pieceGin,
+            m_pieceKeima,
+            m_pieceKyosha,
+            m_pieceKaku,
+            m_pieceHisha,
+            m_pieceHu
+        };
+        turnPlayer.pullPiece(pieceClass);
+        m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y] = Instantiate(pieceArray[iPieceClass], selectedSquere.transform.position, Quaternion.identity);
+        m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].GetComponent<Piece>().initialize(pieceClass, m_whoseTurn, new Coordinate(squerePositionX, squerePositionY));
+        m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].tag = ((m_whoseTurn == Who.One) ? "OnesPiece" : "TwosPiece");
+        //ターン移行する
+        m_whoseTurn = (m_whoseTurn == Who.One ? Who.Two : Who.One);
+        //選択情報を初期化する
+        initSelectedInfomation();
     }
 }

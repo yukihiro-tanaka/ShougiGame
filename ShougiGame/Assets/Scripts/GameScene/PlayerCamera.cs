@@ -5,17 +5,21 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     //選択情報を渡すゲームマネージャー
-    [SerializeField] private GameObject m_gameManager = default;
-    private GameManager m_gameManagerObject = null;
+    private GameManager m_gameManager = default;
     //カメラ情報
-    private Camera m_cameraObject = default;
+    private Camera m_camera = default;
     //プレイヤー
     [SerializeField] private Who m_whose = default;
 
-    void Awake()
+    public void initialize(GameManager gameManager, bool isMaster)
     {
-        //m_gameManagerObject = m_gameManager.GetComponent<GameManager>();
-        m_cameraObject = this.GetComponent<Camera>();
+        m_camera = this.GetComponent<Camera>();
+        m_gameManager = gameManager;
+        m_whose = isMaster ? Who.One : Who.Two;
+        if (!isMaster) {
+            transform.position = new Vector3(0, 19, 7);
+            transform.rotation = Quaternion.Euler(110, 0, 180);
+        }
     }
 
     void Update()
@@ -31,19 +35,19 @@ public class PlayerCamera : MonoBehaviour
     private void onLeftClick()
     {
         GameObject clickedObject = null;
-        switch ( m_gameManagerObject.m_selectMode )
+        switch ( m_gameManager.m_selectMode )
         {
             case GameManager.SelectMode.ModePiece:
             {
                 if (clickedObject = getClickedObject(m_whose == Who.One ? "OnesPiece" : "TwosPiece")) {
-                    m_gameManagerObject.onSelectPiece(clickedObject);
+                    m_gameManager.onSelectPiece(clickedObject);
                 }
                 break;
             }
             case GameManager.SelectMode.ModeSquere:
             {
                 if (clickedObject = getClickedObject("Squere")) {
-                    m_gameManagerObject.onSelectSquere(clickedObject);
+                    m_gameManager.onSelectSquere(clickedObject);
                 }
                 break;
             }
@@ -56,13 +60,13 @@ public class PlayerCamera : MonoBehaviour
 
     private void onRightClick()
     {
-        m_gameManagerObject.initSelectedInfomation();
+        m_gameManager.initSelectedInfomation();
     }
 
     private GameObject getClickedObject(string tag)
     {
         GameObject clickedObject = null;
-        Ray ray = m_cameraObject.ScreenPointToRay(Input.mousePosition);
+        Ray ray = m_camera.ScreenPointToRay(Input.mousePosition);
         foreach (RaycastHit hit in Physics.RaycastAll(ray)) {
             if (hit.collider.gameObject.tag == tag) {
                 clickedObject = hit.collider.gameObject;

@@ -2,12 +2,9 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class LoginManager : MonoBehaviourPunCallbacks {
     [SerializeField] private GameObject m_gameManagerPrefab;
-    [SerializeField] private GameObject m_playerPrefab;
 
     private void Start() {
         Login();
@@ -28,14 +25,11 @@ public class LoginManager : MonoBehaviourPunCallbacks {
     }
 
     public override void OnJoinedRoom() {
-        Player player = Instantiate(m_playerPrefab, new Vector3(0,0,0), Quaternion.identity).GetComponent<Player>();
-        if (PhotonNetwork.IsMasterClient) {
-            PhotonNetwork.Instantiate(m_gameManagerPrefab.name, new Vector3(0,0,0), Quaternion.identity);
-            var hashtable = new Hashtable();
-            hashtable["PlayerOne"] = player;
-            PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
-        } else {
-            
+        if (!PhotonNetwork.IsMasterClient) {
+            var objGameManager = PhotonNetwork.Instantiate(m_gameManagerPrefab.name, new Vector3(0,0,0), Quaternion.identity);
+            var gameManager = objGameManager.GetComponent<GameManager>();
+
+            objGameManager.GetComponent<PhotonView>().RPC("GameStart", RpcTarget.All);
         }
     }
 }

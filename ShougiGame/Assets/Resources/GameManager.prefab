@@ -54,10 +54,8 @@ MonoBehaviour:
   m_pieceKaku: {fileID: 1736825648249620130, guid: f41493aeb589c47d3957b50a244f9102, type: 3}
   m_pieceHisha: {fileID: 6439554925961750922, guid: a082537c73daa4be9a16875abc7a2945, type: 3}
   m_pieceHu: {fileID: 6156966514093562562, guid: 8595e2c5d445c46b6b5753a768e68d95, type: 3}
-  m_selectPromotionCanvas: {fileID: 0}
-  m_playerOneObject: {fileID: 0}
-  m_playerTwoObject: {fileID: 0}
-  m_audioManagerObject: {fileID: 0}
+  m_prefabSelectPromotionCanvas: {fileID: 5180909583991515009, guid: e9043a438667a40f284cc2347b24c85b, type: 3}
+  m_prefabAudioManager: {fileID: 5586135662096313882, guid: 801685cf148264ceaa622676dcbc410f, type: 3}
 --- !u!114 &3323028108128516781
 MonoBehaviour:
   m_ObjectHideFlags: 0

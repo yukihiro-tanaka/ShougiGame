@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class YesButton : MonoBehaviour
 {
-    [SerializeField] private GameManager m_gameManager = default;
-    private GameManager m_gameManagerObject = default;
+    private GameManager m_gameManager = default;
 
-    void Start() {
-        m_gameManagerObject = m_gameManager.GetComponent<GameManager>();
+    public void initialize(GameManager gameManager) {
+        m_gameManager = gameManager;
     }
 
     public void OnClick()
     {
-        m_gameManagerObject.onClickYesButton();
+        m_gameManager.onClickYesButton();
     }
 }

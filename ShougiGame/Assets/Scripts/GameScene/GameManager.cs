@@ -61,8 +61,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         m_playerTwo = new Player();
         GameObject.Find("Camera").GetComponent<PlayerCamera>().initialize(this, PhotonNetwork.IsMasterClient);
         GameObject.Find("Canvas").GetComponent<PlayerCanvas>().initialize(this, (PhotonNetwork.IsMasterClient ? m_playerOne : m_playerTwo));
-        placeInitialSqueres();
-        placeInitialPieces();
+        GameObject objGameBoard = GameObject.Find("GameBoard");
+        placeInitialSqueres(objGameBoard);
+        placeInitialPieces(objGameBoard);
         m_selectPromotionCanvas = Instantiate(m_prefabSelectPromotionCanvas, Vector3.zero, Quaternion.identity);
         m_selectPromotionCanvas.GetComponent<SelectPromotionCanvas>().initialize(this);
         m_audioManagerObject = Instantiate(m_prefabAudioManager, Vector3.zero, Quaternion.identity);
@@ -155,7 +156,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         onSelectInfo();
     }
 
-    private void placeInitialSqueres()
+    private void placeInitialSqueres(GameObject objGameBoard)
     {
         Who[,] whoseArray = new Who[,] {
             { Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two },
@@ -177,11 +178,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 GameObject squere = ((i + j) % 2 == 0) ? m_squere1 : m_squere2;
                 m_squereArray[j, i] = Instantiate(squere, leftUpPosition + diffPosition, Quaternion.identity);
                 m_squereArray[j, i].GetComponent<Squere>().initialize(whoseArray[i, j], new Coordinate(j, i));
+                m_squereArray[j, i].transform.parent = objGameBoard.transform;
             }
         }
     }
 
-    private void placeInitialPieces()
+    private void placeInitialPieces(GameObject objGameBoard)
     {
         PieceClass[,] pieceClassArray = new PieceClass[,] {
             { PieceClass.Kyosha, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosha },
@@ -214,6 +216,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                     m_pieceArray[j, i] = Instantiate(pieceArray[(int)pieceClassArray[i, j]], leftUpPosition + diffPosition, Quaternion.identity);
                     m_pieceArray[j, i].GetComponent<Piece>().initialize(pieceClassArray[i, j], ((i > 5) ? Who.One : Who.Two), new Coordinate(j, i));
                     m_pieceArray[j, i].tag = ((i > 5) ? "OnesPiece" : "TwosPiece");
+                    m_pieceArray[j, i].transform.parent = objGameBoard.transform;
                 }
             }
         }

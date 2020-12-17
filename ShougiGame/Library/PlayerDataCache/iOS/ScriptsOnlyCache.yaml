@@ -8,6 +8,7 @@ ScriptsOnlyBuild:
     - Piece
     - PieceAnimetor
     - PieceButton
+    - PlaceOnPlane
     - PlayerCamera
     - PlayerCanvas
     - SelectPromotionCanvas
@@ -34,6 +35,15 @@ ScriptsOnlyBuild:
     - Photon.Pun.ServerSettings
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    Unity.XR.ARFoundation.dll:
+    - UnityEngine.XR.ARFoundation.ARCameraBackground
+    - UnityEngine.XR.ARFoundation.ARCameraManager
+    - UnityEngine.XR.ARFoundation.ARInputManager
+    - UnityEngine.XR.ARFoundation.ARPlaneManager
+    - UnityEngine.XR.ARFoundation.ARPoseDriver
+    - UnityEngine.XR.ARFoundation.ARRaycastManager
+    - UnityEngine.XR.ARFoundation.ARSession
+    - UnityEngine.XR.ARFoundation.ARSessionOrigin
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -115,6 +125,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12504}
     - Class: 114
+      Script: {instanceID: 12562}
+    - Class: 114
       Script: {instanceID: 12648}
     - Class: 114
       Script: {instanceID: 12682}
@@ -139,6 +151,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13616}
     - Class: 114
+      Script: {instanceID: 13656}
+    - Class: 114
       Script: {instanceID: 13732}
     - Class: 114
       Script: {instanceID: 13768}
@@ -153,13 +167,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14274}
     - Class: 114
+      Script: {instanceID: 14676}
+    - Class: 114
+      Script: {instanceID: 14680}
+    - Class: 114
       Script: {instanceID: 15096}
     - Class: 114
       Script: {instanceID: 15234}
     - Class: 114
+      Script: {instanceID: 15246}
+    - Class: 114
+      Script: {instanceID: 15322}
+    - Class: 114
       Script: {instanceID: 15522}
     - Class: 114
       Script: {instanceID: 15528}
+    - Class: 114
+      Script: {instanceID: 15744}
     - Class: 114
       Script: {instanceID: 15796}
     - Class: 114
@@ -169,15 +193,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 16108}
     - Class: 114
-      Script: {instanceID: 16340}
+      Script: {instanceID: 16128}
     - Class: 114
-      Script: {instanceID: 16566}
+      Script: {instanceID: 16342}
     - Class: 114
-      Script: {instanceID: 16906}
+      Script: {instanceID: 16568}
     - Class: 114
-      Script: {instanceID: 16986}
+      Script: {instanceID: 16596}
     - Class: 114
-      Script: {instanceID: 30580}
+      Script: {instanceID: 16908}
+    - Class: 114
+      Script: {instanceID: 16988}
+    - Class: 114
+      Script: {instanceID: 23270}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1838,6 +1866,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SelectPromotionCanvas
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UniRx.dll
     namespaceName: UniRx.Triggers
     className: ObservableFixedUpdateTrigger
@@ -1973,12 +2007,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.XR.ARFoundation.dll
     namespaceName: UnityEngine.XR.ARFoundation
     className: ARFaceManager
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Player
   - hash:
       serializedVersion: 2
       Hash: d2a2698b314a20912af1eb2b1758dc90
@@ -2188,7 +2216,7 @@ ScriptsOnlyBuild:
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: SelectPromotionCanvas
+    className: PlaceOnPlane
   platform: 9
   scenePathNames:
   - Assets/Scenes/GameScene.unity

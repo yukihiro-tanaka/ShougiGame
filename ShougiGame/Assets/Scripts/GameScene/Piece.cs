@@ -15,10 +15,6 @@ public class Piece : MonoBehaviour
     Quaternion m_targetTransformRotation;
     private PieceAnimetor m_pieceAnimator;
 
-    public Text debug1;
-    public Text debug2;
-    public Text debug3;
-
     private void Start() {
         m_pieceAnimator = transform.GetChild(0).gameObject.GetComponent<PieceAnimetor>();
     }
@@ -40,9 +36,6 @@ public class Piece : MonoBehaviour
     // Awakeで初期化すること
     public void initialize(PieceClass pieceClass, Who whose, Coordinate position)
     {
-        debug1 = GameObject.Find("Canvas/Text1").GetComponent<Text>();
-        debug2 = GameObject.Find("Canvas/Text2").GetComponent<Text>();
-        debug3 = GameObject.Find("Canvas/Text3").GetComponent<Text>();
         m_pieceClass = pieceClass;
         m_whose = whose;
         m_isPromoted = false;

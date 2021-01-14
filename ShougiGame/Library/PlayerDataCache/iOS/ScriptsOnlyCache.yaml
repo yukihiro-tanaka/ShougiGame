@@ -25,8 +25,6 @@ ScriptsOnlyBuild:
     - Photon.Pun.Demo.PunBasics.PlayerUI
     - Photon.Pun.Demo.SlotRacer.PlayerControl
     - Photon.Pun.Demo.SlotRacer.Utils.SplineWalker
-    PhotonUnityNetworking.Editor.dll:
-    - Photon.Pun.PunSceneSettings
     PhotonUnityNetworking.dll:
     - Photon.Pun.PhotonAnimatorView
     - Photon.Pun.PhotonRigidbodyView
@@ -59,7 +57,6 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
-    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
@@ -173,8 +170,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14676}
     - Class: 114
       Script: {instanceID: 14680}
-    - Class: 114
-      Script: {instanceID: 14686}
     - Class: 114
       Script: {instanceID: 15096}
     - Class: 114
@@ -692,7 +687,7 @@ ScriptsOnlyBuild:
     className: ObservableTransformChangedTrigger
   - hash:
       serializedVersion: 2
-      Hash: 823be479ad95d0d244c25f2f3bd99539
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Piece

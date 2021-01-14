@@ -17,7 +17,7 @@ public class PlayerCamera : MonoBehaviour
         m_gameManager = gameManager;
         m_whose = isMaster ? Who.One : Who.Two;
         if (!isMaster) {
-            transform.position = new Vector3(0, 19, 7);
+            transform.position = new Vector3(0, 1.9f, 0.7f);
             transform.rotation = Quaternion.Euler(110, 0, 180);
         }
     }

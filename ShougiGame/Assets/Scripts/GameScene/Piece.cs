@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Piece : MonoBehaviour
 {
@@ -14,19 +15,22 @@ public class Piece : MonoBehaviour
     Quaternion m_targetTransformRotation;
     private PieceAnimetor m_pieceAnimator;
 
+    public Text debug1;
+    public Text debug2;
+    public Text debug3;
 
     private void Start() {
         m_pieceAnimator = transform.GetChild(0).gameObject.GetComponent<PieceAnimetor>();
     }
 
     private void Update() {
-        if (m_targetTransformRotation != transform.localRotation) {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetTransformRotation, 500.0f * Time.deltaTime);
+        if (m_targetTransformRotation != transform.rotation) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetTransformRotation, 50.0f * Time.deltaTime);
             return;
         }
-        if (m_targetTransformPosition != transform.position) {
+        if (m_targetTransformPosition != transform.localPosition) {
             m_pieceAnimator.setIsWalking(true);
-            transform.position = Vector3.MoveTowards(transform.position, m_targetTransformPosition, 2 * Time.deltaTime);
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, m_targetTransformPosition,  0.1f * Time.deltaTime);
         } else {
             m_pieceAnimator.setIsWalking(false);
             m_targetTransformRotation = Quaternion.Euler(0, (m_whose == Who.One) ? 0.0f : 180.0f, 0);
@@ -36,6 +40,9 @@ public class Piece : MonoBehaviour
     // Awakeで初期化すること
     public void initialize(PieceClass pieceClass, Who whose, Coordinate position)
     {
+        debug1 = GameObject.Find("Canvas/Text1").GetComponent<Text>();
+        debug2 = GameObject.Find("Canvas/Text2").GetComponent<Text>();
+        debug3 = GameObject.Find("Canvas/Text3").GetComponent<Text>();
         m_pieceClass = pieceClass;
         m_whose = whose;
         m_isPromoted = false;
@@ -49,7 +56,7 @@ public class Piece : MonoBehaviour
         if (m_whose == Who.Two) {
             transform.Rotate(new Vector3(0, 180, 0));
         }
-        m_targetTransformPosition = transform.position;
+        m_targetTransformPosition = transform.localPosition;
         m_targetTransformRotation = transform.rotation;
     }
 
@@ -65,8 +72,8 @@ public class Piece : MonoBehaviour
     {
         m_position = position;
         m_targetTransformPosition = targetTransformPosition;
-        float diffX = transform.position.x - targetTransformPosition.x;
-        float diffZ = transform.position.z - targetTransformPosition.z;
+        float diffX = transform.localPosition.x - targetTransformPosition.x;
+        float diffZ = transform.localPosition.z - targetTransformPosition.z;
         float rotation;
         if (diffZ == 0) {
             rotation = ((diffX < 0) ? 90.0f : -90.0f);

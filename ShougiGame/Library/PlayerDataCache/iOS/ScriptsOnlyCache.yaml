@@ -59,6 +59,7 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
@@ -135,27 +136,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12896}
     - Class: 114
-      Script: {instanceID: 13002}
+      Script: {instanceID: 12950}
     - Class: 114
-      Script: {instanceID: 13068}
+      Script: {instanceID: 13004}
     - Class: 114
-      Script: {instanceID: 13090}
+      Script: {instanceID: 13070}
     - Class: 114
-      Script: {instanceID: 13282}
+      Script: {instanceID: 13092}
     - Class: 114
-      Script: {instanceID: 13352}
+      Script: {instanceID: 13284}
     - Class: 114
-      Script: {instanceID: 13364}
+      Script: {instanceID: 13354}
     - Class: 114
-      Script: {instanceID: 13388}
+      Script: {instanceID: 13366}
     - Class: 114
-      Script: {instanceID: 13616}
+      Script: {instanceID: 13390}
     - Class: 114
-      Script: {instanceID: 13656}
+      Script: {instanceID: 13618}
     - Class: 114
-      Script: {instanceID: 13732}
+      Script: {instanceID: 13658}
     - Class: 114
-      Script: {instanceID: 13768}
+      Script: {instanceID: 13734}
+    - Class: 114
+      Script: {instanceID: 13770}
     - Class: 114
       Script: {instanceID: 13992}
     - Class: 114
@@ -170,6 +173,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14676}
     - Class: 114
       Script: {instanceID: 14680}
+    - Class: 114
+      Script: {instanceID: 14686}
     - Class: 114
       Script: {instanceID: 15096}
     - Class: 114
@@ -204,8 +209,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 16908}
     - Class: 114
       Script: {instanceID: 16988}
-    - Class: 114
-      Script: {instanceID: 23270}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -521,16 +524,22 @@ ScriptsOnlyBuild:
     className: CountOfPlayersInRoomProperty
   - hash:
       serializedVersion: 2
-      Hash: c656dcc13ae391b68d594cc8f9c590b0
-    assemblyName: PhotonUnityNetworking.Demos.dll
-    namespaceName: Photon.Pun.Demo.Cockpit
-    className: CloudRegionProperty
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlaceOnPlane
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UniRx.dll
     namespaceName: UniRx.Triggers
     className: ObservableCanvasGroupChangedTrigger
+  - hash:
+      serializedVersion: 2
+      Hash: c656dcc13ae391b68d594cc8f9c590b0
+    assemblyName: PhotonUnityNetworking.Demos.dll
+    namespaceName: Photon.Pun.Demo.Cockpit
+    className: CloudRegionProperty
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -683,7 +692,7 @@ ScriptsOnlyBuild:
     className: ObservableTransformChangedTrigger
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 823be479ad95d0d244c25f2f3bd99539
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Piece
@@ -2211,12 +2220,6 @@ ScriptsOnlyBuild:
     assemblyName: PhotonUnityNetworking.Demos.dll
     namespaceName: Photon.Pun.Demo.Cockpit.Forms
     className: UserIdUiForm
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlaceOnPlane
   platform: 9
   scenePathNames:
   - Assets/Scenes/GameScene.unity

@@ -28,7 +28,6 @@ public class LoginManager : MonoBehaviourPunCallbacks {
         if (!PhotonNetwork.IsMasterClient) {
             var objGameManager = PhotonNetwork.Instantiate(m_gameManagerPrefab.name, new Vector3(0,0,0), Quaternion.identity);
             var gameManager = objGameManager.GetComponent<GameManager>();
-
             objGameManager.GetComponent<PhotonView>().RPC("GameStart", RpcTarget.All);
         }
     }

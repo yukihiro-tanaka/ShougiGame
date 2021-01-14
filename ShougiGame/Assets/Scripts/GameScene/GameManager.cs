@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         ModeSquere,
         ModeIsPromote
     }
+
+    // ゲームボード
+    private GameObject m_objGameBoard = default;
 
     // マス情報
     [SerializeField] private GameObject m_squere1 = default;
@@ -59,11 +63,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         //オブジェクト生成、初期化
         m_playerOne = new Player();
         m_playerTwo = new Player();
+# if UNITY_EDITOR
         GameObject.Find("Camera").GetComponent<PlayerCamera>().initialize(this, PhotonNetwork.IsMasterClient);
+# else
+        GameObject.Find("AR Session Origin").GetComponent<PlaceOnPlane>().initialize(this, PhotonNetwork.IsMasterClient);
+# endif
         GameObject.Find("Canvas").GetComponent<PlayerCanvas>().initialize(this, (PhotonNetwork.IsMasterClient ? m_playerOne : m_playerTwo));
-        GameObject objGameBoard = GameObject.Find("GameBoard");
-        placeInitialSqueres(objGameBoard);
-        placeInitialPieces(objGameBoard);
+        m_objGameBoard = GameObject.Find("GameBoard");
+        placeInitialSqueres();
+        placeInitialPieces();
         m_selectPromotionCanvas = Instantiate(m_prefabSelectPromotionCanvas, Vector3.zero, Quaternion.identity);
         m_selectPromotionCanvas.GetComponent<SelectPromotionCanvas>().initialize(this);
         m_audioManagerObject = Instantiate(m_prefabAudioManager, Vector3.zero, Quaternion.identity);
@@ -156,7 +164,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         onSelectInfo();
     }
 
-    private void placeInitialSqueres(GameObject objGameBoard)
+    private void placeInitialSqueres()
     {
         Who[,] whoseArray = new Who[,] {
             { Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two, Who.Two },
@@ -169,21 +177,21 @@ public class GameManager : MonoBehaviourPunCallbacks
             { Who.One, Who.One, Who.One, Who.One, Who.One, Who.One, Who.One, Who.One, Who.One },
             { Who.One, Who.One, Who.One, Who.One, Who.One, Who.One, Who.One, Who.One, Who.One }
         };
-        Vector3 leftUpPosition = new Vector3(-4, 0, 4);
+        Vector3 leftUpPosition = new Vector3(-0.4f, 0, 0.4f);
         Vector3 diffPosition = new Vector3();
         for (int i = 0; i < 9; i++) {
-            diffPosition.z = - i * m_squere1.transform.localScale.z * 10;
+            diffPosition.z = - i * m_squere1.transform.lossyScale.z * 10;
             for (int j = 0; j < 9; j++) {
-                diffPosition.x = j * m_squere1.transform.localScale.z * 10;
+                diffPosition.x = j * m_squere1.transform.lossyScale.z * 10;
                 GameObject squere = ((i + j) % 2 == 0) ? m_squere1 : m_squere2;
                 m_squereArray[j, i] = Instantiate(squere, leftUpPosition + diffPosition, Quaternion.identity);
                 m_squereArray[j, i].GetComponent<Squere>().initialize(whoseArray[i, j], new Coordinate(j, i));
-                m_squereArray[j, i].transform.parent = objGameBoard.transform;
+                m_squereArray[j, i].transform.parent = m_objGameBoard.transform;
             }
         }
     }
 
-    private void placeInitialPieces(GameObject objGameBoard)
+    private void placeInitialPieces()
     {
         PieceClass[,] pieceClassArray = new PieceClass[,] {
             { PieceClass.Kyosha, PieceClass.Keima, PieceClass.Gin, PieceClass.Kin, PieceClass.Ou, PieceClass.Kin, PieceClass.Gin, PieceClass.Keima, PieceClass.Kyosha },
@@ -206,17 +214,17 @@ public class GameManager : MonoBehaviourPunCallbacks
             m_pieceHisha,
             m_pieceHu
         };
-        Vector3 leftUpPosition = new Vector3(-4, 0, 4);
+        Vector3 leftUpPosition = new Vector3(-0.4f, 0, 0.4f);
         Vector3 diffPosition = new Vector3();
         for (int i = 0; i < 9; i++) {
-            diffPosition.z = - i * m_squere1.transform.localScale.z * 10;
+            diffPosition.z = - i * m_squere1.transform.lossyScale.z * 10;
             for (int j = 0; j < 9; j++) {
-                diffPosition.x = j * m_squere1.transform.localScale.z * 10;
+                diffPosition.x = j * m_squere1.transform.lossyScale.z * 10;
                 if (pieceClassArray[i, j] != PieceClass.No) {
                     m_pieceArray[j, i] = Instantiate(pieceArray[(int)pieceClassArray[i, j]], leftUpPosition + diffPosition, Quaternion.identity);
+                    m_pieceArray[j, i].transform.parent = m_objGameBoard.transform;
                     m_pieceArray[j, i].GetComponent<Piece>().initialize(pieceClassArray[i, j], ((i > 5) ? Who.One : Who.Two), new Coordinate(j, i));
                     m_pieceArray[j, i].tag = ((i > 5) ? "OnesPiece" : "TwosPiece");
-                    m_pieceArray[j, i].transform.parent = objGameBoard.transform;
                 }
             }
         }
@@ -495,7 +503,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
         //移動する
-        seledtedPiece.move(selectedSquere.m_position, objSelectedSquere.transform.position);
+        seledtedPiece.move(selectedSquere.m_position, objSelectedSquere.transform.localPosition);
         m_pieceArray[squerePositionX, squerePositionY] = m_pieceArray[piecePositionX, piecePositionY];
         m_pieceArray[piecePositionX, piecePositionY] = null;
         //成る
@@ -529,6 +537,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         };
         turnPlayer.pullPiece(pieceClass);
         m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y] = Instantiate(pieceArray[iPieceClass], selectedSquere.transform.position, Quaternion.identity);
+        m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].transform.parent = m_objGameBoard.transform;
         m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].GetComponent<Piece>().initialize(pieceClass, m_whoseTurn, new Coordinate(squerePositionX, squerePositionY));
         m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].tag = ((m_whoseTurn == Who.One) ? "OnesPiece" : "TwosPiece");
         //ターン移行する

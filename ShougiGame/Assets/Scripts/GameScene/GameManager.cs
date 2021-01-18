@@ -185,8 +185,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 diffPosition.x = j * m_squere1.transform.lossyScale.z * 10;
                 GameObject squere = ((i + j) % 2 == 0) ? m_squere1 : m_squere2;
                 m_squereArray[j, i] = Instantiate(squere, leftUpPosition + diffPosition, Quaternion.identity);
-                m_squereArray[j, i].GetComponent<Squere>().initialize(whoseArray[i, j], new Coordinate(j, i));
-                m_squereArray[j, i].transform.parent = m_objGameBoard.transform;
+                m_squereArray[j, i].GetComponent<Squere>().initialize(whoseArray[i, j], new Coordinate(j, i), m_objGameBoard);
             }
         }
     }
@@ -222,8 +221,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 diffPosition.x = j * m_squere1.transform.lossyScale.z * 10;
                 if (pieceClassArray[i, j] != PieceClass.No) {
                     m_pieceArray[j, i] = Instantiate(pieceArray[(int)pieceClassArray[i, j]], leftUpPosition + diffPosition, Quaternion.identity);
-                    m_pieceArray[j, i].transform.parent = m_objGameBoard.transform;
-                    m_pieceArray[j, i].GetComponent<Piece>().initialize(pieceClassArray[i, j], ((i > 5) ? Who.One : Who.Two), new Coordinate(j, i));
+                    m_pieceArray[j, i].GetComponent<Piece>().initialize(pieceClassArray[i, j], ((i > 5) ? Who.One : Who.Two), new Coordinate(j, i), m_objGameBoard);
                     m_pieceArray[j, i].tag = ((i > 5) ? "OnesPiece" : "TwosPiece");
                 }
             }
@@ -537,8 +535,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         };
         turnPlayer.pullPiece(pieceClass);
         m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y] = Instantiate(pieceArray[iPieceClass], selectedSquere.transform.position, Quaternion.identity);
-        m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].transform.parent = m_objGameBoard.transform;
-        m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].GetComponent<Piece>().initialize(pieceClass, m_whoseTurn, new Coordinate(squerePositionX, squerePositionY));
+        m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].GetComponent<Piece>().initialize(pieceClass, m_whoseTurn, new Coordinate(squerePositionX, squerePositionY),  m_objGameBoard);
         m_pieceArray[selectedSquere.m_position.x, selectedSquere.m_position.y].tag = ((m_whoseTurn == Who.One) ? "OnesPiece" : "TwosPiece");
         //ターン移行する
         m_whoseTurn = (m_whoseTurn == Who.One ? Who.Two : Who.One);

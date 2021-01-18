@@ -20,8 +20,8 @@ public class Piece : MonoBehaviour
     }
 
     private void Update() {
-        if (m_targetTransformRotation != transform.rotation) {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, m_targetTransformRotation, 50.0f * Time.deltaTime);
+        if (m_targetTransformRotation != transform.localRotation) {
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, m_targetTransformRotation, 50.0f * Time.deltaTime);
             return;
         }
         if (m_targetTransformPosition != transform.localPosition) {
@@ -34,7 +34,7 @@ public class Piece : MonoBehaviour
     }
 
     // Awakeで初期化すること
-    public void initialize(PieceClass pieceClass, Who whose, Coordinate position)
+    public void initialize(PieceClass pieceClass, Who whose, Coordinate position, GameObject objGameBoard)
     {
         m_pieceClass = pieceClass;
         m_whose = whose;
@@ -45,12 +45,14 @@ public class Piece : MonoBehaviour
         if (m_isAblePromote) {
             m_aura = transform.Find("Eff_Aura_6").gameObject;
         }
-        //プレイヤーごとに向きを変更する
+        transform.parent = objGameBoard.transform;
+        //向きを変更する
+        transform.Rotate(new Vector3(0, objGameBoard.transform.rotation.y, 0));
         if (m_whose == Who.Two) {
             transform.Rotate(new Vector3(0, 180, 0));
         }
         m_targetTransformPosition = transform.localPosition;
-        m_targetTransformRotation = transform.rotation;
+        m_targetTransformRotation = transform.localRotation;
     }
 
     public void promote()

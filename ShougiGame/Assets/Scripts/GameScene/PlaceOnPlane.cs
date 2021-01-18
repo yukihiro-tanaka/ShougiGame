@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ARRaycastManager))]
 public class PlaceOnPlane : MonoBehaviour
@@ -11,8 +13,11 @@ public class PlaceOnPlane : MonoBehaviour
     private Who m_whose;
     private ARRaycastManager raycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    private GameObject m_objCamera = default;
     private Camera m_camera = default;
     private int m_beforeTouchCount = 0;
+
+    public Text debug1;
 
     public void initialize(GameManager gameManager, bool isMaster)
     {
@@ -20,6 +25,7 @@ public class PlaceOnPlane : MonoBehaviour
         m_gameManager = gameManager;
         m_whose = isMaster ? Who.One : Who.Two;
         raycastManager = GetComponent<ARRaycastManager>();
+        m_objCamera = transform.Find("AR Camera").gameObject;
         m_camera = transform.Find("AR Camera").GetComponent<Camera>();
     }
 
@@ -83,6 +89,10 @@ public class PlaceOnPlane : MonoBehaviour
             // Raycastの衝突情報は距離によってソートされるため、0番目が最も近い場所でヒットした情報となります
             var hitPose = hits[0].pose;
             m_objGameBoard.transform.position = hitPose.position;
+            m_objGameBoard.transform.rotation = Quaternion.Euler(0, m_objCamera.transform.localEulerAngles.y, 0);
+            if (m_whose == Who.Two) {
+                m_objGameBoard.transform.Rotate(new Vector3(0, 180, 0));
+            }
         }
     }
 }
